@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import { Anton, Archivo, JetBrains_Mono } from 'next/font/google';
-import { siteConfig } from '@/data/site';
+import { isIndexable, siteConfig } from '@/data/site';
 import { Providers } from '@/components/providers';
 import { Navigation } from '@/components/layout/navigation';
 import { Footer } from '@/components/layout/footer';
 import { PersonJsonLd } from '@/components/seo/person-json-ld';
+import 'lenis/dist/lenis.css';
 import './globals.css';
 
 /**
@@ -58,7 +59,6 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
-    // [PENDENTE] Substituir por foto real em /public/media/og-image.jpg (1200×630).
     images: [
       {
         url: siteConfig.ogImage,
@@ -74,11 +74,17 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
-  },
+  robots: isIndexable
+    ? {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+      }
+    : {
+        index: false,
+        follow: false,
+        googleBot: { index: false, follow: false },
+      },
   category: 'sports',
 };
 

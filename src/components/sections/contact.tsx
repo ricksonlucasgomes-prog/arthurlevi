@@ -60,7 +60,7 @@ export function Contact() {
               <Action href="#contato" disabled aria-label="Contato ainda não disponível">
                 Contato em breve
               </Action>
-              <p className="mt-5 max-w-[60ch] text-sm leading-relaxed text-ash">
+              <p className="text-support mt-5 max-w-[60ch] text-ash">
                 Para ativar os botões, preencha{' '}
                 <code className="font-mono text-xs text-bone">guardianContact</code> em{' '}
                 <code className="font-mono text-xs text-bone">src/data/player.ts</code> com nome,
@@ -79,11 +79,11 @@ export function Contact() {
           <h3 id="protecao-title" className="mt-5 font-display text-2xl leading-tight md:text-3xl">
             Arthur tem {identity.age} anos
           </h3>
-          <p className="mt-5 text-sm leading-relaxed text-ash">
+          <p className="text-support mt-5 text-ash">
             Por decisão da família, este site não divulga endereço, escola, telefone ou e-mail
             pessoal do atleta, rotina, horários de treino ou qualquer localização.
           </p>
-          <p className="mt-4 text-sm leading-relaxed text-ash">{guardianContact.note}</p>
+          <p className="text-support mt-4 text-ash">{guardianContact.note}</p>
         </motion.aside>
       </motion.div>
     </Section>

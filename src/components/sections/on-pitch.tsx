@@ -62,7 +62,7 @@ export function OnPitch() {
               </div>
 
               {trait.body ? (
-                <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-ash md:text-base">
+                <p className="text-support mt-4 max-w-[62ch] text-ash">
                   {trait.body}
                 </p>
               ) : (
@@ -77,7 +77,7 @@ export function OnPitch() {
       </div>
 
       {described.length === 0 ? (
-        <p className="mt-10 max-w-[62ch] text-sm leading-relaxed text-ash">
+        <p className="text-support mt-10 max-w-[62ch] text-ash">
           Para ativar esta seção, envie de duas a quatro frases por característica, descrevendo o
           que o atleta faz em campo. Descrições curtas e concretas funcionam melhor do que adjetivos.
         </p>

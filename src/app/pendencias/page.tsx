@@ -5,6 +5,7 @@ import {
   attributes,
   bio,
   career,
+  developerContact,
   gallery,
   guardianContact,
   highlights,
@@ -51,6 +52,7 @@ export default function PendenciasPage() {
     { label: 'Responsável — nome', value: guardianContact.name },
     { label: 'Responsável — WhatsApp', value: guardianContact.whatsapp },
     { label: 'Responsável — e-mail', value: guardianContact.email },
+    { label: 'Desenvolvedor — e-mail', value: developerContact.email },
     { label: 'Instagram do atleta', value: social.instagram },
   ];
 

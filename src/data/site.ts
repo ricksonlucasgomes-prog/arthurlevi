@@ -4,6 +4,19 @@
  * Defina NEXT_PUBLIC_SITE_URL no ambiente de produção (ex.: Vercel) com o
  * domínio final. O valor abaixo é apenas o fallback de desenvolvimento.
  */
+/**
+ * Enquanto `false`, o site emite `noindex, nofollow`: o link continua abrindo
+ * normalmente e pode ser enviado a quem se queira, mas buscadores não o
+ * incluem no índice.
+ *
+ * Só vire para `true` (definindo `SITE_INDEXABLE=true` no ambiente da Vercel)
+ * quando o site estiver de fato pronto para o público — em especial com
+ * `guardianContact` preenchido, senão um olheiro encontra a página e não tem
+ * como fazer contato. Indexação é fácil de ligar e difícil de desfazer, ainda
+ * mais tratando-se de um menor de idade.
+ */
+export const isIndexable = process.env.SITE_INDEXABLE === 'true';
+
 export const siteConfig = {
   /** [AGUARDANDO DEFINIÇÃO] Domínio final do site. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://arthurlevi.com.br',

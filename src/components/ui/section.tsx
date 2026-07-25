@@ -85,7 +85,7 @@ function SectionHeader({ id, index, title, lead }: Pick<SectionProps, 'id' | 'in
         {lead ? (
           <motion.p
             variants={fadeUp}
-            className="max-w-[42ch] text-balance text-sm leading-relaxed text-ash md:text-base lg:pb-3 lg:text-right"
+            className="text-support max-w-[42ch] text-balance text-ash lg:pb-3 lg:text-right"
           >
             {lead}
           </motion.p>
@@ -113,7 +113,7 @@ export function PendingBlock({ title, description }: { title: string; descriptio
       <p className="mx-auto mt-5 max-w-[52ch] text-balance font-display text-2xl leading-tight md:text-3xl">
         {title}
       </p>
-      <p className="mx-auto mt-4 max-w-[56ch] text-balance text-sm leading-relaxed text-ash">
+      <p className="text-support mx-auto mt-4 max-w-[56ch] text-balance text-ash">
         {description}
       </p>
     </motion.div>

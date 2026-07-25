@@ -1,4 +1,4 @@
-import { guardianContact, identity, social } from '@/data/player';
+import { developerContact, guardianContact, identity, social } from '@/data/player';
 import { whatsappLink } from '@/lib/utils';
 
 /**
@@ -7,6 +7,10 @@ import { whatsappLink } from '@/lib/utils';
 export function Footer() {
   const year = new Date().getFullYear();
   const whatsapp = whatsappLink(guardianContact.whatsapp, `Contato sobre ${identity.fullName}`);
+  const developerWhatsapp = whatsappLink(
+    developerContact.whatsapp,
+    `Olá, ${developerContact.name}. Quero falar sobre o site de ${identity.fullName}.`,
+  );
 
   return (
     <footer className="border-t border-line bg-ink">
@@ -58,6 +62,33 @@ export function Footer() {
                 ) : null}
                 {!guardianContact.name && !whatsapp && !guardianContact.email ? (
                   <li className="text-ash">A definir</li>
+                ) : null}
+              </ul>
+            </div>
+
+            <div>
+              <p className="kicker text-ash">Site e suporte</p>
+              <ul className="mt-3 space-y-2 text-sm">
+                <li>{developerContact.name}</li>
+                <li className="text-ash">{developerContact.relationship}</li>
+                {developerWhatsapp ? (
+                  <li>
+                    <a
+                      href={developerWhatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline-grow"
+                    >
+                      WhatsApp
+                    </a>
+                  </li>
+                ) : null}
+                {developerContact.email ? (
+                  <li>
+                    <a href={`mailto:${developerContact.email}`} className="underline-grow">
+                      {developerContact.email}
+                    </a>
+                  </li>
                 ) : null}
               </ul>
             </div>

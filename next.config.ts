@@ -1,6 +1,12 @@
+import path from 'node:path';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Existe um package-lock.json solto em ~/ que fazia o Turbopack eleger a home
+  // do usuário como raiz do workspace. Fixamos a raiz na pasta do projeto.
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
   images: {
     // AVIF primeiro: arquivos menores para as fotos grandes do site.
     formats: ['image/avif', 'image/webp'],

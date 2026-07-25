@@ -44,6 +44,8 @@ body {
   background-color: var(--color-ink);
   color: var(--color-bone);
   font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
   font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -66,10 +68,10 @@ body {
   border-radius: 1px;
 }
 
-/* A tipografia de display é gráfica: caixa alta, kerning fechado. */
+/* A tipografia de display é gráfica: caixa alta e kerning firme, sem colidir. */
 .font-display {
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   text-transform: uppercase;
 }
 
@@ -101,9 +103,19 @@ body {
 .kicker {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.6875rem;
-  line-height: 1;
-  letter-spacing: 0.26em;
+  line-height: 1.35;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+/*
+ * Texto de apoio recorrente. A escala fluida evita os blocos miúdos no
+ * celular sem competir com os títulos no desktop.
+ */
+.text-support {
+  font-size: clamp(0.9375rem, 0.91rem + 0.12vw, 1rem);
+  line-height: 1.65;
+  letter-spacing: -0.005em;
 }
 
 /* Hachura diagonal — marca um campo preparado porém ainda sem dado real. */

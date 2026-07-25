@@ -20,8 +20,11 @@ const kindLabel: Record<string, string> = {
  */
 export function CareerTimeline() {
   const ref = useRef<HTMLOListElement>(null);
+  const hasCareer = career.length > 0;
   const { scrollYProgress } = useScroll({
-    target: ref,
+    // Sem registros, o `<ol>` não é renderizado e o ref nunca recebe elemento —
+    // apontar `target` para ele faria o Motion falhar ao medir o alvo.
+    target: hasCareer ? ref : undefined,
     offset: ['start 75%', 'end 60%'],
   });
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });

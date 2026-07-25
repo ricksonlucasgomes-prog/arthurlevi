@@ -194,9 +194,9 @@ export const traits: Trait[] = [
 export const media = {
   /** Camada de fundo da hero — cena ampla, contexto de jogo. */
   heroBackground: {
-    src: null,
+    src: '/media/hero-bg.webp',
     expectedPath: '/media/hero-bg.webp',
-    alt: 'Arthur Levi em campo durante partida',
+    alt: 'Arthur Levi em arrancada atrás da bola durante partida',
     brief:
       'Foto vertical/ampla do Arthur em campo. Deixe espaço vazio à esquerda — a tipografia ocupa esse lado.',
     spec: '2000×2600 px mínimo, WebP ou JPG de alta qualidade',
@@ -218,9 +218,9 @@ export const media = {
 
   /** Retrato editorial usado na seção de perfil. */
   portrait: {
-    src: null,
+    src: '/media/portrait.webp',
     expectedPath: '/media/portrait.webp',
-    alt: 'Retrato de Arthur Levi com o uniforme de jogo',
+    alt: 'Retrato de Arthur Levi de braços cruzados com o uniforme de jogo',
     brief: 'Retrato vertical, meio corpo, uniforme de jogo, fundo limpo ou desfocado.',
     spec: '1400×1900 px mínimo',
   } satisfies MediaSlot,
@@ -251,7 +251,7 @@ export const media = {
 export const gallery: GalleryItem[] = [
   {
     id: 'g1',
-    src: null,
+    src: '/media/galeria/01-acao.webp',
     expectedPath: '/media/galeria/01-acao.webp',
     aspect: 'tall',
     tag: 'Jogo',
@@ -262,7 +262,7 @@ export const gallery: GalleryItem[] = [
   },
   {
     id: 'g2',
-    src: null,
+    src: '/media/galeria/02-close.webp',
     expectedPath: '/media/galeria/02-close.webp',
     aspect: 'square',
     tag: 'Retrato',
@@ -273,13 +273,13 @@ export const gallery: GalleryItem[] = [
   },
   {
     id: 'g3',
-    src: null,
-    expectedPath: '/media/galeria/03-treino.webp',
+    src: '/media/galeria/03-concentracao.webp',
+    expectedPath: '/media/galeria/03-concentracao.webp',
     aspect: 'landscape',
-    tag: 'Treino',
-    alt: 'Arthur Levi durante sessão de treino',
+    tag: 'Concentração',
+    alt: 'Arthur Levi sentado no gramado com a equipe, concentrado antes da partida',
     caption: null,
-    brief: 'Horizontal, treino técnico com bola.',
+    brief: 'Horizontal, momento de concentração ou conversa de equipe.',
     spec: '1800×1200 px',
   },
   {
@@ -361,7 +361,7 @@ export const achievements: Achievement[] = [];
 // ---------------------------------------------------------------------------
 
 export const social = {
-  instagram: null as Pending<string>,
+  instagram: 'https://www.instagram.com/arthurlevigomes/' as Pending<string>,
   youtube: null as Pending<string>,
   tiktok: null as Pending<string>,
 };
@@ -373,11 +373,22 @@ export const social = {
 export const guardianContact = {
   name: null as Pending<string>,
   /** Ex.: 'Pai', 'Mãe', 'Responsável legal'. */
-  relationship: null as Pending<string>,
+  relationship: 'Pai' as Pending<string>,
   /** Somente dígitos, com DDI + DDD. Ex.: '5511999999999'. */
-  whatsapp: null as Pending<string>,
+  whatsapp: '5562994349416' as Pending<string>,
   email: null as Pending<string>,
   note: 'Todo contato referente ao atleta é intermediado pelo responsável legal.',
+};
+
+// ---------------------------------------------------------------------------
+// Contato técnico do site — não substitui o responsável legal do atleta
+// ---------------------------------------------------------------------------
+
+export const developerContact = {
+  name: 'Lucas',
+  relationship: 'Irmão e desenvolvedor do site',
+  whatsapp: '5562994349416' as Pending<string>,
+  email: null as Pending<string>,
 };
 
 // ---------------------------------------------------------------------------
@@ -415,6 +426,7 @@ export const player = {
   achievements,
   social,
   guardianContact,
+  developerContact,
   display,
 };
 

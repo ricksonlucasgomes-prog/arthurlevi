@@ -5,6 +5,7 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'moti
 import { identity, media } from '@/data/player';
 import { duration, ease } from '@/lib/motion';
 import { useMotionOK } from '@/hooks/use-motion-ok';
+import { useMounted } from '@/hooks/use-mounted';
 import { MediaFrame } from '@/components/ui/media-frame';
 import { Action, PlayGlyph } from '@/components/ui/action';
 import { ScrollCue } from './scroll-cue';
@@ -18,6 +19,9 @@ import { ScrollCue } from './scroll-cue';
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { animate, interact } = useMotionOK();
+  const mounted = useMounted();
+  // Parallax de scroll só depois da montagem — ver `useMounted`.
+  const parallax = animate && mounted;
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -56,7 +60,7 @@ export function Hero() {
     >
       {/* ---------- Camada 1: fundo fotográfico ---------- */}
       <motion.div
-        style={animate ? { scale: backdropScale, y: backdropY } : undefined}
+        style={parallax ? { scale: backdropScale, y: backdropY } : undefined}
         className="absolute inset-0"
       >
         <motion.div
@@ -96,7 +100,7 @@ export function Hero() {
 
       {/* ---------- Camada 2 + 4: tipografia e informação ---------- */}
       <motion.div
-        style={animate ? { y: contentY, opacity: contentOpacity } : undefined}
+        style={parallax ? { y: contentY, opacity: contentOpacity } : undefined}
         className="relative z-10 flex min-h-svh flex-col justify-end pb-24 pt-28 sm:pb-28 lg:justify-center lg:pb-32"
       >
         <div className="shell">
@@ -110,7 +114,7 @@ export function Hero() {
             {identity.position}
           </motion.p>
 
-          <h1 className="font-display leading-[0.8] tracking-[-0.025em]">
+          <h1 className="font-display leading-[0.82] tracking-[-0.015em]">
             <span className="sr-only">
               {identity.fullName} — {identity.position}, {identity.age} anos
             </span>
@@ -130,7 +134,7 @@ export function Hero() {
               <span className="kicker pb-1 text-ash">anos</span>
             </p>
 
-            <p className="max-w-[34ch] text-balance text-sm leading-relaxed text-bone/80 md:text-base">
+            <p className="text-support max-w-[34ch] text-balance text-bone/80">
               {identity.tagline}
             </p>
           </motion.div>
