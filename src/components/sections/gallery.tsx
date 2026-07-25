@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { display, gallery, sectionIndex } from '@/data/player';
+import { display, editorial, gallery, sectionIndex } from '@/data/player';
 import { clipReveal, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
@@ -42,7 +42,7 @@ export function Gallery() {
       id="galeria"
       index={sectionIndex.galeria}
       title="Galeria"
-      lead="Jogo, treino e retrato. Envie fotos com proporções variadas — a composição foi desenhada para essa mistura."
+      lead={editorial.gallery.lead}
     >
       <ul
         className={cn(
@@ -75,7 +75,10 @@ export function Gallery() {
 
             <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-4">
               <span className="kicker bg-ink/70 px-3 py-2 backdrop-blur-sm">{item.tag}</span>
-              <span className="kicker text-ash/70">{String(index + 1).padStart(2, '0')}</span>
+              <span className="kicker text-ash/70">
+                {String(index + 1).padStart(2, '0')} /{' '}
+                {String(visibleGallery.length).padStart(2, '0')}
+              </span>
             </div>
 
             {item.caption ? (
@@ -87,7 +90,7 @@ export function Gallery() {
         ))}
       </ul>
 
-      <p className="kicker mt-6 text-ash lg:hidden">Arraste para o lado</p>
+      <p className="kicker mt-6 text-ash lg:hidden">{editorial.gallery.mobileHint}</p>
     </Section>
   );
 }

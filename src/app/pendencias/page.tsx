@@ -44,8 +44,6 @@ export default function PendenciasPage() {
     { label: 'Pé dominante', value: physical.dominantFoot },
     { label: 'Altura', value: physical.height },
     { label: 'Peso', value: physical.weight },
-    { label: 'Cidade', value: bio.city },
-    { label: 'Estado', value: bio.state },
     { label: 'Clube atual', value: bio.club },
     { label: 'Categoria', value: bio.category },
     { label: 'Número da camisa', value: bio.shirtNumber },

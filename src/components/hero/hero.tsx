@@ -70,7 +70,7 @@ export function Hero() {
             slot={media.heroBackground}
             className="h-full w-full [&_img]:object-[66%_center] lg:[&_img]:object-center"
             sizes="(min-width: 1024px) 58vw, 100vw"
-            priority
+            preload
           />
           {/* Máscara que funde a foto no preto e devolve legibilidade ao texto */}
           <div
@@ -90,7 +90,7 @@ export function Hero() {
             slot={media.heroCutout}
             className="h-full w-full [&_img]:object-contain [&_img]:object-bottom"
             sizes="(min-width: 1024px) 46vw, 72vw"
-            priority
+            preload
           />
         </motion.div>
       ) : display.showPendingSections ? (

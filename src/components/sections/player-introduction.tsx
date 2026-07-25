@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { identity, media, sectionIndex } from '@/data/player';
+import { editorial, identity, media, sectionIndex } from '@/data/player';
 import { clipReveal, fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { useMotionOK } from '@/hooks/use-motion-ok';
 import { cn } from '@/lib/utils';
@@ -47,21 +47,22 @@ export function PlayerIntroduction() {
             id="identidade-title"
             className="font-display text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]"
           >
-            <MaskLine>Doze anos.</MaskLine>
-            <MaskLine>Uma posição.</MaskLine>
-            <MaskLine lineClassName="text-accent">Um objetivo definido.</MaskLine>
+            {identity.statementLines.map((line, index) => (
+              <MaskLine
+                key={line}
+                lineClassName={index === identity.statementLines.length - 1 ? 'text-accent' : undefined}
+              >
+                {line}
+              </MaskLine>
+            ))}
           </h2>
 
           <motion.div variants={fadeUp} className="mt-10 max-w-[54ch] space-y-5 text-ash">
-            <p className="text-base leading-relaxed md:text-lg">
-              Este é o perfil esportivo de {identity.fullName}, {identity.position.toLowerCase()} de{' '}
-              {identity.age} anos. O material reúne informações, imagens e vídeos organizados para
-              avaliação de olheiros, treinadores e clubes de formação.
-            </p>
-            <p className="text-base leading-relaxed md:text-lg">
-              Os dados são atualizados conforme a evolução do atleta. Todo contato é intermediado
-              pelo responsável legal.
-            </p>
+            {editorial.introduction.paragraphs.map((paragraph) => (
+              <p key={paragraph} className="text-base leading-relaxed md:text-lg">
+                {paragraph}
+              </p>
+            ))}
           </motion.div>
 
           {/* Ficha resumida — apenas dados confirmados */}
@@ -94,7 +95,7 @@ export function PlayerIntroduction() {
             </motion.div>
           </motion.div>
 
-          <p className="kicker mt-4 text-ash">Retrato oficial</p>
+          <p className="kicker mt-4 text-ash">{editorial.introduction.portraitLabel}</p>
         </div>
       </div>
     </section>

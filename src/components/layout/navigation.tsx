@@ -91,10 +91,10 @@ export function Navigation() {
           <Link
             href="/"
             className="font-display text-lg leading-none tracking-[-0.01em] md:text-xl"
-            aria-label={`${identity.fullName} — início`}
           >
             {identity.firstName}
             <span className="text-accent"> {identity.lastName}</span>
+            <span className="sr-only"> — início</span>
           </Link>
 
           {/* Desktop */}
@@ -157,10 +157,44 @@ function MobileMenu({
   active: string | null;
   onClose: () => void;
 }) {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // O diálogo mantém o foco dentro do menu e começa no primeiro destino.
+  useEffect(() => {
+    if (!open) return;
+
+    const menu = menuRef.current;
+    if (!menu) return;
+
+    const focusable = Array.from(
+      menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex="0"]'),
+    );
+    focusable[0]?.focus();
+
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    menu.addEventListener('keydown', trapFocus);
+    return () => menu.removeEventListener('keydown', trapFocus);
+  }, [open]);
+
   return (
     <AnimatePresence>
       {open ? (
         <motion.div
+          ref={menuRef}
           id="menu-mobile"
           role="dialog"
           aria-modal="true"

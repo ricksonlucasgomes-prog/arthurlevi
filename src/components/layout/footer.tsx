@@ -1,4 +1,4 @@
-import { developerContact, guardianContact, identity, social } from '@/data/player';
+import { editorial, guardianContact, identity, social } from '@/data/player';
 import { whatsappLink } from '@/lib/utils';
 
 /**
@@ -7,39 +7,38 @@ import { whatsappLink } from '@/lib/utils';
 export function Footer() {
   const year = new Date().getFullYear();
   const whatsapp = whatsappLink(guardianContact.whatsapp, `Contato sobre ${identity.fullName}`);
-  const developerWhatsapp = whatsappLink(
-    developerContact.whatsapp,
-    `Olá, ${developerContact.name}. Quero falar sobre o site de ${identity.fullName}.`,
-  );
 
   return (
     <footer className="border-t border-line bg-ink">
-      <div className="shell py-16 md:py-20">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div className="shell py-14 md:py-20">
+        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-display text-[clamp(2.5rem,9vw,6rem)] leading-[0.85]">
               {identity.firstName}
               <br />
               {identity.lastName}
             </p>
-            <p className="kicker mt-5 text-ash">Young football athlete</p>
+            <p className="kicker mt-5 text-ash">{editorial.footer.descriptor}</p>
           </div>
 
-          <div className="flex flex-col gap-8 md:items-end md:text-right">
+          <div className="flex flex-col gap-7 md:items-end md:text-right">
             {social.instagram ? (
-              <a
-                href={social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="kicker underline-grow self-start text-bone md:self-end"
-              >
-                Instagram
-              </a>
+              <div>
+                <p className="kicker text-ash">Perfil público</p>
+                <a
+                  href={social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline-grow mt-2 inline-flex text-sm text-bone"
+                >
+                  Instagram
+                </a>
+              </div>
             ) : null}
 
             <div>
               <p className="kicker text-ash">Contato do responsável</p>
-              <ul className="mt-3 space-y-2 text-sm">
+              <ul className="mt-2 space-y-2 text-sm">
                 {guardianContact.name ? <li>{guardianContact.name}</li> : null}
                 {whatsapp ? (
                   <li>
@@ -65,33 +64,6 @@ export function Footer() {
                 ) : null}
               </ul>
             </div>
-
-            <div>
-              <p className="kicker text-ash">Site e suporte</p>
-              <ul className="mt-3 space-y-2 text-sm">
-                <li>{developerContact.name}</li>
-                <li className="text-ash">{developerContact.relationship}</li>
-                {developerWhatsapp ? (
-                  <li>
-                    <a
-                      href={developerWhatsapp}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline-grow"
-                    >
-                      WhatsApp
-                    </a>
-                  </li>
-                ) : null}
-                {developerContact.email ? (
-                  <li>
-                    <a href={`mailto:${developerContact.email}`} className="underline-grow">
-                      {developerContact.email}
-                    </a>
-                  </li>
-                ) : null}
-              </ul>
-            </div>
           </div>
         </div>
 
@@ -99,7 +71,7 @@ export function Footer() {
           <p className="kicker text-ash">
             © {year} {identity.fullName}
           </p>
-          <p className="kicker text-ash/60">
+          <p className="kicker text-ash">
             {identity.position} · {identity.age} anos
           </p>
         </div>

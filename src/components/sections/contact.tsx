@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { guardianContact, identity, sectionIndex } from '@/data/player';
+import { editorial, guardianContact, identity, sectionIndex } from '@/data/player';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { whatsappLink } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
@@ -24,7 +24,7 @@ export function Contact() {
       id="contato"
       index={sectionIndex.contato}
       title="Contato"
-      lead="Todo contato referente ao atleta é intermediado pelo responsável legal."
+      lead={editorial.contact.lead}
       tone="carbon"
     >
       <motion.div
@@ -32,58 +32,65 @@ export function Contact() {
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
-        className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16"
+        className="border-t border-line"
       >
-        <div className="lg:col-span-7">
-          <motion.dl variants={fadeUp} className="border-t border-line">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
+          <motion.div
+            variants={fadeUp}
+            className="border-b border-line py-10 lg:col-span-7 lg:border-b-0 lg:border-r lg:py-14 lg:pr-16"
+          >
+            <p className="kicker text-accent">{editorial.contact.eyebrow}</p>
+            <h3 className="mt-6 max-w-[12ch] font-display text-[clamp(2.5rem,7vw,5.75rem)] leading-[0.9]">
+              {editorial.contact.title}
+            </h3>
+            <p className="text-support mt-6 max-w-[48ch] text-ash">{editorial.contact.body}</p>
+
+            {hasChannel ? (
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                {whatsapp ? (
+                  <Action href={whatsapp} external>
+                    Falar no WhatsApp
+                  </Action>
+                ) : null}
+                {guardianContact.email ? (
+                  <Action href={`mailto:${guardianContact.email}`} variant="ghost">
+                    Enviar e-mail
+                  </Action>
+                ) : null}
+              </div>
+            ) : (
+              <div className="mt-9">
+                <Action href="#contato" disabled aria-label="Contato ainda não disponível">
+                  Contato em breve
+                </Action>
+              </div>
+            )}
+          </motion.div>
+
+          <motion.dl
+            variants={fadeUp}
+            className="py-4 lg:col-span-5 lg:py-8 lg:pl-12"
+            aria-label="Dados do contato responsável"
+          >
             <Row label="Responsável" value={guardianContact.name} />
             <Row label="Vínculo" value={guardianContact.relationship} />
             <Row label="WhatsApp" value={guardianContact.whatsapp ? 'Disponível' : null} />
             <Row label="E-mail" value={guardianContact.email} />
           </motion.dl>
-
-          {hasChannel ? (
-            <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              {whatsapp ? (
-                <Action href={whatsapp} external>
-                  Falar no WhatsApp
-                </Action>
-              ) : null}
-              {guardianContact.email ? (
-                <Action href={`mailto:${guardianContact.email}`} variant="ghost">
-                  Enviar e-mail
-                </Action>
-              ) : null}
-            </motion.div>
-          ) : (
-            <motion.div variants={fadeUp} className="mt-10">
-              <Action href="#contato" disabled aria-label="Contato ainda não disponível">
-                Contato em breve
-              </Action>
-              <p className="text-support mt-5 max-w-[60ch] text-ash">
-                Para ativar os botões, preencha{' '}
-                <code className="font-mono text-xs text-bone">guardianContact</code> em{' '}
-                <code className="font-mono text-xs text-bone">src/data/player.ts</code> com nome,
-                WhatsApp (somente dígitos, com DDI e DDD) e e-mail do responsável.
-              </p>
-            </motion.div>
-          )}
         </div>
 
         <motion.aside
           variants={fadeUp}
-          className="border border-line p-6 md:p-8 lg:col-span-5"
+          className="grid gap-4 border-t border-line py-7 md:grid-cols-[12rem_1fr] md:items-start md:gap-10"
           aria-labelledby="protecao-title"
         >
-          <p className="kicker text-accent">Proteção do atleta</p>
-          <h3 id="protecao-title" className="mt-5 font-display text-2xl leading-tight md:text-3xl">
-            Arthur tem {identity.age} anos
-          </h3>
-          <p className="text-support mt-5 text-ash">
-            Por decisão da família, este site não divulga endereço, escola, telefone ou e-mail
-            pessoal do atleta, rotina, horários de treino ou qualquer localização.
+          <p id="protecao-title" className="kicker text-accent">
+            Proteção do atleta
           </p>
-          <p className="text-support mt-4 text-ash">{guardianContact.note}</p>
+          <div className="max-w-[68ch]">
+            <p className="text-support text-ash">{editorial.contact.privacy}</p>
+            <p className="mt-3 text-sm leading-relaxed text-ash/75">{guardianContact.note}</p>
+          </div>
         </motion.aside>
       </motion.div>
     </Section>
@@ -92,7 +99,7 @@ export function Contact() {
 
 function Row({ label, value }: { label: string; value: string | null }) {
   return (
-    <div className="grid grid-cols-1 gap-1 border-b border-line py-5 sm:grid-cols-[minmax(0,12rem)_1fr] sm:items-baseline sm:gap-8">
+    <div className="grid grid-cols-[7.5rem_1fr] items-baseline gap-4 border-b border-line py-5 sm:grid-cols-[minmax(0,10rem)_1fr] sm:gap-8">
       <dt className="kicker text-ash">{label}</dt>
       <dd className="font-display text-xl leading-none md:text-2xl">
         {value ?? <span className="text-ash">—</span>}

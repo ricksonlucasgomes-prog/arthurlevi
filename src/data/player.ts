@@ -129,8 +129,51 @@ export const identity = {
   position: 'Atacante',
   positionShort: 'ATA',
   tagline: 'Construindo seu caminho para o futebol profissional.',
-  /** Frase editorial de abertura da seção de perfil. */
-  statement: 'Doze anos. Uma posição. Um objetivo definido.',
+  /** Frase editorial de abertura, separada conforme a composição tipográfica. */
+  statementLines: ['Doze anos.', 'Uma posição.', 'Um objetivo definido.'],
+} as const;
+
+/**
+ * Textos editoriais da página pública.
+ *
+ * Mantê-los aqui garante que a narrativa do perfil possa ser atualizada sem
+ * alterar componentes. Os textos descrevem apenas o propósito do site e os
+ * dados confirmados acima — nunca fazem avaliação técnica do atleta.
+ */
+export const editorial = {
+  introduction: {
+    paragraphs: [
+      `Este é o perfil esportivo de ${identity.fullName}, ${identity.position.toLowerCase()} de ${identity.age} anos. O material reúne informações e imagens organizadas para avaliação de olheiros, treinadores e clubes de formação.`,
+      'O perfil evolui junto com o material confirmado pela família. Todo contato é intermediado pelo responsável legal.',
+    ],
+    portraitLabel: 'Retrato oficial',
+  },
+  profile: {
+    lead:
+      'Informações confirmadas sobre o atleta. Dados ainda não informados permanecem claramente sinalizados, sem estimativas.',
+    pendingTitle: 'Ficha em atualização',
+    pendingBody:
+      'Clube, categoria, numeração e dados físicos serão publicados após confirmação do responsável.',
+    privacy:
+      'Por proteção ao atleta, menor de idade, não são divulgados endereço, escola, rotina ou locais de treino.',
+  },
+  gallery: {
+    lead:
+      'Registros reais de jogo, concentração e retrato compõem um olhar direto sobre o atleta.',
+    mobileHint: 'Deslize para explorar',
+  },
+  contact: {
+    lead: 'Todo contato referente ao atleta é intermediado pelo responsável legal.',
+    eyebrow: 'Canal oficial',
+    title: 'Fale com o responsável',
+    body:
+      'Para avaliações, oportunidades esportivas ou outras informações profissionais sobre o atleta.',
+    privacy:
+      'Este site não divulga endereço, escola, telefone ou e-mail pessoal do atleta, rotina, horários de treino ou qualquer localização.',
+  },
+  footer: {
+    descriptor: `${identity.position} · atleta em formação`,
+  },
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -138,8 +181,6 @@ export const identity = {
 // ---------------------------------------------------------------------------
 
 export const bio = {
-  city: null as Pending<string>,
-  state: null as Pending<string>,
   club: null as Pending<string>,
   category: null as Pending<string>,
   shirtNumber: null as Pending<number>,
@@ -459,6 +500,7 @@ export const sectionIndex: Record<string, string> = {
 
 export const player = {
   identity,
+  editorial,
   bio,
   physical,
   attributes,

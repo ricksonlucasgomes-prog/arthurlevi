@@ -37,7 +37,7 @@ Mantenha a variedade de proporções: a composição foi desenhada para essa mis
 |---|---|---|
 | `01-acao.webp` | vertical | Disputa de bola em jogo |
 | `02-close.webp` | quadrada | Close no rosto, concentração |
-| `03-treino.webp` | horizontal | Treino técnico com bola |
+| `03-concentracao.webp` | horizontal | Concentração antes da partida |
 | `04-finalizacao.webp` | vertical | Momento do chute ou cabeceio |
 | `05-momento.webp` | horizontal ampla | Entrada em campo, perfilado ou comemoração |
 | `06-velocidade.webp` | vertical | Corpo inteiro em corrida |

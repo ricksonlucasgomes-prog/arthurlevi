@@ -19,12 +19,12 @@ export const isIndexable = process.env.SITE_INDEXABLE === 'true';
 
 export const siteConfig = {
   /** [AGUARDANDO DEFINIÇÃO] Domínio final do site. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://arthurlevi.com.br',
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://arthurlevi-71kc.vercel.app',
   name: 'Arthur Levi',
   title: 'Arthur Levi — Atacante | Jovem Atleta de Futebol',
   shortTitle: 'Arthur Levi',
   description:
-    'Perfil esportivo de Arthur Levi, atacante de 12 anos em formação. Highlights, características de jogo, trajetória e contato profissional através do responsável legal.',
+    'Perfil esportivo de Arthur Levi, atacante de 12 anos em formação. Informações, registros de jogo e contato profissional através do responsável legal.',
   locale: 'pt-BR',
   /** Imagem de compartilhamento — 1200x630. Substituir por foto real. */
   ogImage: '/media/og-image.jpg',

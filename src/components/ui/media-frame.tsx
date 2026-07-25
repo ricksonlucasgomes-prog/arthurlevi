@@ -8,7 +8,8 @@ interface MediaFrameProps {
   className?: string;
   /** `sizes` do next/image — essencial para não baixar imagem maior que o necessário. */
   sizes?: string;
-  priority?: boolean;
+  /** Reserva o preload do Next.js para mídia realmente crítica, acima da dobra. */
+  preload?: boolean;
   /** Escurece a foto para o texto por cima manter contraste. */
   overlay?: boolean;
   /** Reduz o placeholder ao essencial (usado em blocos pequenos). */
@@ -25,7 +26,7 @@ export function MediaFrame({
   slot,
   className,
   sizes = '100vw',
-  priority = false,
+  preload = false,
   overlay = false,
   compact = false,
 }: MediaFrameProps) {
@@ -37,7 +38,7 @@ export function MediaFrame({
           alt={slot.alt}
           fill
           sizes={sizes}
-          priority={priority}
+          preload={preload}
           className="object-cover"
         />
       ) : (
