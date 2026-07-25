@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
-import { identity, media } from '@/data/player';
+import { display, identity, media } from '@/data/player';
 import { duration, ease } from '@/lib/motion';
 import { useMotionOK } from '@/hooks/use-motion-ok';
 import { useMounted } from '@/hooks/use-mounted';
@@ -94,9 +94,9 @@ export function Hero() {
             priority
           />
         </motion.div>
-      ) : (
+      ) : display.showPendingSections ? (
         <CutoutMarker />
-      )}
+      ) : null}
 
       {/* ---------- Camada 2 + 4: tipografia e informação ---------- */}
       <motion.div
