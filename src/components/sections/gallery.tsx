@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { gallery } from '@/data/player';
+import { display, gallery } from '@/data/player';
 import { clipReveal, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
@@ -33,6 +33,10 @@ const mobileAspect: Record<string, string> = {
 };
 
 export function Gallery() {
+  const visibleGallery = display.showPendingSections
+    ? gallery
+    : gallery.filter((item) => item.src !== null);
+
   return (
     <Section
       id="galeria"
@@ -48,7 +52,7 @@ export function Gallery() {
           'lg:mx-0 lg:grid lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0 lg:overflow-visible lg:px-0',
         )}
       >
-        {gallery.map((item, index) => (
+        {visibleGallery.map((item, index) => (
           <motion.li
             key={item.id}
             variants={clipReveal}

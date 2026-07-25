@@ -4,9 +4,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { navigation } from '@/data/site';
-import { identity } from '@/data/player';
+import { identity, sectionVisibility } from '@/data/player';
 import { ease } from '@/lib/motion';
 import { cn } from '@/lib/utils';
+
+const visibleNavigation = navigation.filter((item) => {
+  if (item.id === 'em-campo') return sectionVisibility.onPitch;
+  if (item.id === 'highlights') return sectionVisibility.highlights;
+  if (item.id === 'numeros') return sectionVisibility.statistics;
+  if (item.id === 'trajetoria') return sectionVisibility.career;
+  if (item.id === 'galeria') return sectionVisibility.gallery;
+  return true;
+});
 
 export function Navigation() {
   const { scrollY } = useScroll();
@@ -19,7 +28,7 @@ export function Navigation() {
 
   // Marca a seção visível para destacar o link correspondente.
   useEffect(() => {
-    const sections = navigation
+    const sections = visibleNavigation
       .map((item) => document.getElementById(item.id))
       .filter((el): el is HTMLElement => el !== null);
 
@@ -90,7 +99,7 @@ export function Navigation() {
 
           {/* Desktop */}
           <ul className="hidden items-center gap-8 lg:flex">
-            {navigation.map((item) => (
+            {visibleNavigation.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
@@ -163,7 +172,7 @@ function MobileMenu({
           className="fixed inset-0 z-40 flex flex-col justify-between bg-ink pb-10 pt-24 lg:hidden"
         >
           <ul className="shell flex flex-col">
-            {navigation.map((item, index) => (
+            {visibleNavigation.map((item, index) => (
               <li key={item.id} className="overflow-hidden border-b border-line">
                 <motion.a
                   href={`#${item.id}`}

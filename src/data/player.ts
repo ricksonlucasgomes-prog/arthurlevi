@@ -407,6 +407,30 @@ export const display = {
   showPendingSections: false,
 };
 
+/**
+ * Visibilidade da página pública.
+ *
+ * Centralizar estas condições evita menu apontando para seção inexistente e
+ * impede placeholders internos de vazarem quando o modo preparado está
+ * desligado.
+ */
+export const sectionVisibility = {
+  attributes:
+    display.showPendingSections || attributes.some((attribute) => attribute.value !== null),
+  onPitch:
+    display.showPendingSections ||
+    media.onPitch.src !== null ||
+    traits.some((trait) => trait.body !== null),
+  highlights:
+    display.showPendingSections || highlights.some((highlight) => highlight.ref !== null),
+  statistics:
+    display.showPendingSections || currentSeason !== null || statistics.length > 0,
+  career: display.showPendingSections || career.length > 0,
+  gallery: display.showPendingSections || gallery.some((item) => item.src !== null),
+  achievements: display.showPendingSections || achievements.length > 0,
+  scouting: display.showPendingSections || media.scouting.src !== null,
+} as const;
+
 // ---------------------------------------------------------------------------
 // Objeto agregado
 // ---------------------------------------------------------------------------
@@ -428,6 +452,7 @@ export const player = {
   guardianContact,
   developerContact,
   display,
+  sectionVisibility,
 };
 
 export type Player = typeof player;

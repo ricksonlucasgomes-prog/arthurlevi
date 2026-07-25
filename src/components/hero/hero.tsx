@@ -2,8 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
-import { display, identity, media } from '@/data/player';
-import { duration, ease } from '@/lib/motion';
+import { display, identity, media, sectionVisibility } from '@/data/player';
 import { useMotionOK } from '@/hooks/use-motion-ok';
 import { useMounted } from '@/hooks/use-mounted';
 import { MediaFrame } from '@/components/ui/media-frame';
@@ -69,14 +68,14 @@ export function Hero() {
         >
           <MediaFrame
             slot={media.heroBackground}
-            className="h-full w-full"
+            className="h-full w-full [&_img]:object-[66%_center] lg:[&_img]:object-center"
             sizes="(min-width: 1024px) 58vw, 100vw"
             priority
           />
           {/* Máscara que funde a foto no preto e devolve legibilidade ao texto */}
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20 lg:bg-gradient-to-r lg:from-ink lg:via-ink/55 lg:to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-ink/10 lg:bg-gradient-to-r lg:from-ink lg:via-ink/55 lg:to-transparent"
           />
         </motion.div>
       </motion.div>
@@ -101,55 +100,49 @@ export function Hero() {
       {/* ---------- Camada 2 + 4: tipografia e informação ---------- */}
       <motion.div
         style={parallax ? { y: contentY, opacity: contentOpacity } : undefined}
-        className="relative z-10 flex min-h-svh flex-col justify-end pb-24 pt-28 sm:pb-28 lg:justify-center lg:pb-32"
+        className="relative z-10 flex min-h-svh flex-col justify-end pb-20 pt-24 sm:pb-24 lg:justify-center lg:pb-32 lg:pt-28"
       >
         <div className="shell">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: duration.base }}
-            className="kicker mb-5 flex items-center gap-3 text-accent md:mb-7"
-          >
+          <p className="kicker mb-3 flex items-center gap-3 text-accent md:mb-5 lg:mb-7">
             <span aria-hidden className="h-px w-8 bg-accent" />
             {identity.position}
-          </motion.p>
+          </p>
 
-          <h1 className="font-display leading-[0.82] tracking-[-0.015em]">
+          <h1 className="font-display leading-[0.84] tracking-[-0.015em] lg:leading-[0.82]">
             <span className="sr-only">
               {identity.fullName} — {identity.position}, {identity.age} anos
             </span>
-            <NameLine text={identity.firstName} delay={0.28} />
-            <NameLine text={identity.lastName} delay={0.4} />
+            <NameLine text={identity.firstName} />
+            <NameLine text={identity.lastName} />
           </h1>
 
           {/* Faixa de dados — idade + frase, separadas por régua técnica */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.72, duration: duration.base, ease: ease.out }}
-            className="mt-8 flex flex-col gap-6 border-t border-line pt-6 sm:flex-row sm:items-start sm:gap-10 md:mt-10 lg:max-w-3xl"
-          >
+          <div className="mt-5 grid grid-cols-[auto_1fr] items-center gap-5 border-t border-line pt-4 sm:flex sm:items-start sm:gap-10 md:mt-8 md:pt-6 lg:mt-10 lg:max-w-3xl">
             <p className="flex items-baseline gap-2 leading-none">
-              <span className="font-display text-5xl md:text-6xl">{identity.age}</span>
+              <span className="font-display text-4xl sm:text-5xl md:text-6xl">{identity.age}</span>
               <span className="kicker pb-1 text-ash">anos</span>
             </p>
 
-            <p className="text-support max-w-[34ch] text-balance text-bone/80">
+            <p className="max-w-[34ch] text-balance text-sm leading-snug text-bone/80 sm:text-base sm:leading-[1.65]">
               {identity.tagline}
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.88, duration: duration.base, ease: ease.out }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4"
-          >
-            <Action href="#perfil">Ver perfil</Action>
-            <Action href="#highlights" variant="ghost" glyph={<PlayGlyph />}>
-              Assistir highlights
+          <div className="mt-5 flex gap-3 sm:gap-4 md:mt-8">
+            <Action href="#perfil" className="w-full sm:w-auto">
+              Ver perfil
             </Action>
-          </motion.div>
+            {sectionVisibility.highlights ? (
+              <Action
+                href="#highlights"
+                variant="ghost"
+                glyph={<PlayGlyph />}
+                className="hidden sm:inline-flex"
+              >
+                Assistir highlights
+              </Action>
+            ) : null}
+          </div>
         </div>
       </motion.div>
 
@@ -161,17 +154,12 @@ export function Hero() {
 }
 
 /** Uma linha do nome, revelada por máscara. */
-function NameLine({ text, delay }: { text: string; delay: number }) {
+function NameLine({ text }: { text: string }) {
   return (
     <span aria-hidden className="block overflow-hidden">
-      <motion.span
-        initial={{ y: '108%' }}
-        animate={{ y: '0%' }}
-        transition={{ delay, duration: duration.cinematic, ease: ease.out }}
-        className="block text-[clamp(3.75rem,17vw,15rem)] will-change-transform"
-      >
+      <span className="block text-[clamp(4.5rem,21vw,6rem)] lg:text-[clamp(3.75rem,17vw,15rem)]">
         {text}
-      </motion.span>
+      </span>
     </span>
   );
 }
