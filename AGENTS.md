@@ -96,12 +96,28 @@ Antes de entregar qualquer alteração: `typecheck` + `lint` + `build`.
 `/pendencias` lista o que ainda falta o cliente enviar; ela se atualiza
 sozinha a partir de `player.ts`.
 
-## Estado atual
+## Decisões de produto
 
-Site completo e funcional, build passando, todas as rotas estáticas.
-**Nenhuma foto, vídeo ou dado pessoal foi fornecido ainda** — tudo está como
-placeholder identificado. Pendências prioritárias: `hero-bg.webp`,
-`hero-cutout.png` (PNG transparente, é a camada que cria a profundidade da
-hero), ficha física/clube e o contato do responsável.
+- **Numeração das seções é fixa (01–10)**, definida em `sectionIndex` em
+  `player.ts`, mesmo com seções ocultas. Os buracos na página pública
+  (02 → 08 → 10) são intencionais — sinalizam o material completo em
+  construção. Decisão do cliente (jul/2026); **não** renumerar pelo visível.
+  Menu e cabeçalho de seção devem exibir sempre o mesmo número.
+- **Todo ajuste validado deve ser commitado e enviado ao GitHub** (pedido do
+  cliente). O push em `master` dispara o deploy na Vercel.
+
+## Estado atual (jul/2026)
+
+Site **no ar** em https://arthurlevi-71kc.vercel.app (deploy automático via
+GitHub `master`; domínio final ainda não definido). Modo público ativo
+(`showPendingSections: false`) e `noindex` até `SITE_INDEXABLE=true`.
+
+Já publicado: `hero-bg.webp`, `portrait.webp`, galeria 01–03, WhatsApp do
+responsável, Instagram do atleta.
+
+Pendências prioritárias: `hero-cutout.png` (PNG transparente, é a camada que
+cria a profundidade da hero), ficha física (altura/peso/pé), clube/categoria
+e nome + e-mail do responsável. Depois: `em-campo.webp`, `scouting.webp`,
+galeria 04–06, vídeo de highlights + poster, escudo do clube.
 
 Especificação de cada arquivo de mídia: `public/media/README.md`.
