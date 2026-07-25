@@ -1,26 +1,174 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================================================
+   TOKENS
+   Uma base quase preta, um texto osso e UMA cor de destaque.
+   O accent (#FF3B1F) tem contraste 5.6:1 sobre #080808 — aprovado em AA
+   inclusive para texto pequeno.
+   ========================================================================== */
+
+@theme {
+  --color-ink: #080808;
+  --color-carbon: #111111;
+  --color-graphite: #191919;
+  --color-bone: #f5f5f2;
+  --color-ash: #8d8d8d;
+  --color-accent: #ff3b1f;
+  --color-accent-deep: #b32a12;
+
+  --color-line: rgb(245 245 242 / 0.12);
+  --color-line-strong: rgb(245 245 242 / 0.24);
+
+  --shadow-lift: 0 40px 120px -40px rgb(0 0 0 / 0.9);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-anton);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-mono-tech);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  /* Compensa a barra de navegação fixa ao pular para uma âncora. */
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* Foco sempre visível — requisito de acessibilidade, não decoração. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* A tipografia de display é gráfica: caixa alta, kerning fechado. */
+.font-display {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   COMPOSIÇÃO
+   ========================================================================== */
+
+/* Container editorial. Largo no desktop, respiro curto no mobile. */
+.shell {
+  width: 100%;
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .shell {
+    padding-inline: 4rem;
+  }
+}
+
+/* Rótulo técnico: mono, caixa alta, tracking aberto. Vocabulário de scouting. */
+.kicker {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+/* Hachura diagonal — marca um campo preparado porém ainda sem dado real. */
+.hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(245 245 242 / 0.09) 0px,
+    rgb(245 245 242 / 0.09) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+
+/* Grão de filme. Estático, uma única camada, sem custo de animação. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Rail horizontal da galeria no mobile. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sublinhado que cresce a partir da esquerda no hover/foco. */
+.underline-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.underline-grow:hover,
+.underline-grow:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* ==========================================================================
+   MOVIMENTO REDUZIDO
+   O usuário que pede menos movimento recebe o site inteiro, sem animação.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
