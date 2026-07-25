@@ -432,36 +432,26 @@ export const sectionVisibility = {
 } as const;
 
 /**
- * Numeração narrativa das seções, derivada do que está de fato na página.
+ * Numeração narrativa das seções.
  *
- * Com seções ocultas a sequência fixa (01–10) abriria buracos — o menu diria
- * "Contato 03" e o cabeçalho da seção, "10 — Contato". Numerar só o que é
- * renderizado mantém cabeçalhos e menu contando a mesma história. A CTA de
- * scouting não entra: ela não tem cabeçalho numerado.
+ * DECISÃO DO CLIENTE (jul/2026): a numeração é fixa na estrutura completa,
+ * mesmo com seções ocultas. Os buracos na página pública (02 → 08 → 10) são
+ * intencionais — sinalizam que o material completo existe e está em
+ * construção. Não "corrigir" renumerando só o que está visível. Menu e
+ * cabeçalhos consomem este mapa para mostrarem o mesmo número.
  */
-export const sectionIndex: Record<string, string> = (() => {
-  const ordered: { id: string; visible: boolean }[] = [
-    { id: 'identidade', visible: true },
-    { id: 'perfil', visible: true },
-    { id: 'atributos', visible: sectionVisibility.attributes },
-    { id: 'em-campo', visible: sectionVisibility.onPitch },
-    { id: 'highlights', visible: sectionVisibility.highlights },
-    { id: 'numeros', visible: sectionVisibility.statistics },
-    { id: 'trajetoria', visible: sectionVisibility.career },
-    { id: 'galeria', visible: sectionVisibility.gallery },
-    { id: 'conquistas', visible: sectionVisibility.achievements },
-    { id: 'contato', visible: true },
-  ];
-
-  const index: Record<string, string> = {};
-  let position = 0;
-  for (const section of ordered) {
-    if (!section.visible) continue;
-    position += 1;
-    index[section.id] = String(position).padStart(2, '0');
-  }
-  return index;
-})();
+export const sectionIndex: Record<string, string> = {
+  identidade: '01',
+  perfil: '02',
+  atributos: '03',
+  'em-campo': '04',
+  highlights: '05',
+  numeros: '06',
+  trajetoria: '07',
+  galeria: '08',
+  conquistas: '09',
+  contato: '10',
+};
 
 // ---------------------------------------------------------------------------
 // Objeto agregado
