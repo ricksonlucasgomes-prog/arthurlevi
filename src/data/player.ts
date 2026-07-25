@@ -404,7 +404,7 @@ export const display = {
    *
    * TROQUE PARA `false` ANTES DE DIVULGAR O SITE.
    */
-  showPendingSections: true,
+  showPendingSections: false,
 };
 
 // ---------------------------------------------------------------------------
