@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { highlights } from '@/data/player';
+import { highlights, sectionIndex } from '@/data/player';
 import { clipReveal, fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
@@ -23,7 +23,7 @@ export function Highlights() {
   return (
     <Section
       id="highlights"
-      index="05"
+      index={sectionIndex.highlights}
       title="Highlights"
       lead="Melhores momentos em vídeo. O player carrega o conteúdo apenas quando você dá play."
       tone="carbon"

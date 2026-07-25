@@ -431,6 +431,38 @@ export const sectionVisibility = {
   scouting: display.showPendingSections || media.scouting.src !== null,
 } as const;
 
+/**
+ * Numeração narrativa das seções, derivada do que está de fato na página.
+ *
+ * Com seções ocultas a sequência fixa (01–10) abriria buracos — o menu diria
+ * "Contato 03" e o cabeçalho da seção, "10 — Contato". Numerar só o que é
+ * renderizado mantém cabeçalhos e menu contando a mesma história. A CTA de
+ * scouting não entra: ela não tem cabeçalho numerado.
+ */
+export const sectionIndex: Record<string, string> = (() => {
+  const ordered: { id: string; visible: boolean }[] = [
+    { id: 'identidade', visible: true },
+    { id: 'perfil', visible: true },
+    { id: 'atributos', visible: sectionVisibility.attributes },
+    { id: 'em-campo', visible: sectionVisibility.onPitch },
+    { id: 'highlights', visible: sectionVisibility.highlights },
+    { id: 'numeros', visible: sectionVisibility.statistics },
+    { id: 'trajetoria', visible: sectionVisibility.career },
+    { id: 'galeria', visible: sectionVisibility.gallery },
+    { id: 'conquistas', visible: sectionVisibility.achievements },
+    { id: 'contato', visible: true },
+  ];
+
+  const index: Record<string, string> = {};
+  let position = 0;
+  for (const section of ordered) {
+    if (!section.visible) continue;
+    position += 1;
+    index[section.id] = String(position).padStart(2, '0');
+  }
+  return index;
+})();
+
 // ---------------------------------------------------------------------------
 // Objeto agregado
 // ---------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { attributes } from '@/data/player';
+import { attributes, sectionIndex } from '@/data/player';
 import { duration, ease, fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { Section } from '@/components/ui/section';
 import { Counter } from '@/components/ui/counter';
@@ -19,7 +19,7 @@ export function PlayerAttributes() {
   return (
     <Section
       id="atributos"
-      index="03"
+      index={sectionIndex.atributos}
       title="Atributos"
       lead="Estrutura pronta para receber avaliação técnica. Cada nota será publicada junto da fonte que a emitiu."
     >

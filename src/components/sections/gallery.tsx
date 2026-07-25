@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { display, gallery } from '@/data/player';
+import { display, gallery, sectionIndex } from '@/data/player';
 import { clipReveal, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
@@ -40,7 +40,7 @@ export function Gallery() {
   return (
     <Section
       id="galeria"
-      index="08"
+      index={sectionIndex.galeria}
       title="Galeria"
       lead="Jogo, treino e retrato. Envie fotos com proporções variadas — a composição foi desenhada para essa mistura."
     >

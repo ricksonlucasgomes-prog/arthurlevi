@@ -30,7 +30,7 @@ export function MediaFrame({
   compact = false,
 }: MediaFrameProps) {
   return (
-    <div className={cn('relative overflow-hidden bg-carbon', className)}>
+    <div className={cn('@container relative overflow-hidden bg-carbon', className)}>
       {slot.src ? (
         <Image
           src={slot.src}
@@ -67,9 +67,13 @@ function MediaPlaceholder({ slot, compact }: { slot: MediaSlot; compact: boolean
       <Corner className="bottom-3 left-3 border-b border-l" />
       <Corner className="bottom-3 right-3 border-b border-r" />
 
-      <p className="kicker relative text-accent">Mídia pendente</p>
+      {/*
+        Abaixo de 10rem de largura (ex.: o chip de 80px do escudo) não cabe
+        texto legível — resta a hachura, e a descrição fica no aria-label.
+      */}
+      <p className="kicker relative text-accent @max-[10rem]:hidden">Mídia pendente</p>
 
-      <div className="relative max-w-[36ch] space-y-2">
+      <div className="relative max-w-[36ch] space-y-2 @max-[10rem]:hidden">
         <p className="font-mono text-[0.7rem] leading-relaxed break-all text-bone/90">
           {slot.expectedPath}
         </p>

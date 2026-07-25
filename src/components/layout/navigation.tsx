@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { navigation } from '@/data/site';
-import { identity, sectionVisibility } from '@/data/player';
+import { identity, sectionIndex, sectionVisibility } from '@/data/player';
 import { ease } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
@@ -186,9 +186,8 @@ function MobileMenu({
                   )}
                 >
                   {item.label}
-                  <span className="kicker text-ash">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
+                  {/* Mesmo índice do cabeçalho da seção — o menu é um sumário. */}
+                  <span className="kicker text-ash">{sectionIndex[item.id]}</span>
                 </motion.a>
               </li>
             ))}

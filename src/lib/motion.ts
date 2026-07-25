@@ -36,7 +36,13 @@ export const stagger = (delayChildren = 0, staggerChildren = 0.07): Variants => 
 
 /** Revelação por máscara: o texto sobe de dentro de um bloco com overflow. */
 export const maskUp: Variants = {
-  hidden: { y: '110%' },
+  /*
+   * 130%, e não 110%: `MaskLine` abre respiro vertical para os acentos da
+   * caixa alta (Ú, Ó, Ç) não serem cortados pelo `overflow-hidden`. Esse
+   * respiro é área visível, então o ponto de partida precisa ficar abaixo
+   * dele — senão o texto aparece antes da hora.
+   */
+  hidden: { y: '130%' },
   visible: {
     y: '0%',
     transition: { duration: duration.slow, ease: ease.out },

@@ -2,9 +2,10 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { identity, media } from '@/data/player';
+import { identity, media, sectionIndex } from '@/data/player';
 import { clipReveal, fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { useMotionOK } from '@/hooks/use-motion-ok';
+import { cn } from '@/lib/utils';
 import { MediaFrame } from '@/components/ui/media-frame';
 import { MaskLine } from '@/components/ui/reveal';
 
@@ -39,7 +40,7 @@ export function PlayerIntroduction() {
           className="lg:col-span-7 lg:pt-6"
         >
           <motion.p variants={fadeUp} className="kicker mb-8 text-accent">
-            01 — Identidade
+            {sectionIndex.identidade} — Identidade
           </motion.p>
 
           <h2
@@ -70,7 +71,8 @@ export function PlayerIntroduction() {
           >
             <Fact label="Posição" value={identity.position} />
             <Fact label="Idade" value={`${identity.age} anos`} />
-            <Fact label="Fase" value="Formação" />
+            {/* Em 2 colunas são 3 células — a última estica para não sobrar buraco. */}
+            <Fact label="Fase" value="Formação" className="col-span-2 sm:col-span-1" />
           </motion.dl>
         </motion.div>
 
@@ -99,9 +101,9 @@ export function PlayerIntroduction() {
   );
 }
 
-function Fact({ label, value }: { label: string; value: string }) {
+function Fact({ label, value, className }: { label: string; value: string; className?: string }) {
   return (
-    <div className="bg-ink px-5 py-6">
+    <div className={cn('bg-ink px-5 py-6', className)}>
       <dt className="kicker text-ash">{label}</dt>
       <dd className="mt-3 font-display text-2xl leading-none md:text-3xl">{value}</dd>
     </div>

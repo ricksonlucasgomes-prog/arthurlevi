@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { bio, identity, physical, type Pending } from '@/data/player';
+import { bio, identity, physical, sectionIndex, type Pending } from '@/data/player';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { Section, PendingValue } from '@/components/ui/section';
 import { MediaFrame } from '@/components/ui/media-frame';
@@ -29,7 +29,7 @@ export function PlayerProfile() {
   return (
     <Section
       id="perfil"
-      index="02"
+      index={sectionIndex.perfil}
       title="Perfil"
       lead="Ficha técnica do atleta. Os campos ainda vazios serão preenchidos com informações confirmadas pelo responsável."
       tone="carbon"
@@ -47,10 +47,17 @@ export function PlayerProfile() {
             <motion.div
               key={row.label}
               variants={fadeUp}
-              className="grid grid-cols-1 gap-1 border-b border-line py-5 sm:grid-cols-[minmax(0,14rem)_1fr] sm:items-baseline sm:gap-8 sm:py-6"
+              /*
+               * No celular a ficha vira tabela de duas colunas em vez de
+               * empilhar rótulo sobre valor: são nove linhas, e empilhadas
+               * elas ocupavam três telas de rolagem. Alinhado pela linha de
+               * base, lê-se como ficha técnica — que é como um olheiro
+               * escaneia esses dados.
+               */
+              className="grid grid-cols-[8rem_1fr] items-baseline gap-x-4 border-b border-line py-4 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-8 sm:py-6"
             >
               <dt className="kicker text-ash">{row.label}</dt>
-              <dd className="font-display text-2xl leading-none md:text-3xl">
+              <dd className="font-display text-xl leading-none sm:text-2xl md:text-3xl">
                 {row.value ?? <PendingValue />}
               </dd>
             </motion.div>
@@ -67,7 +74,12 @@ export function PlayerProfile() {
         >
           <motion.div variants={fadeUp} className="border border-line">
             <p className="kicker border-b border-line px-5 py-4 text-ash">Número da camisa</p>
-            <div className="flex aspect-square items-center justify-center">
+            {/*
+             * O quadrado só existe no desktop, onde a coluna é estreita. No
+             * celular a coluna é a tela inteira e um quadrado viraria ~350px
+             * de hachura para exibir um traço.
+             */}
+            <div className="flex aspect-[2/1] items-center justify-center lg:aspect-square">
               {bio.shirtNumber !== null ? (
                 <span className="font-display text-[clamp(5rem,16vw,10rem)] leading-none">
                   {bio.shirtNumber}

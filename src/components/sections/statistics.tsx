@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { currentSeason, statistics, type SeasonStats } from '@/data/player';
+import { currentSeason, sectionIndex, statistics, type SeasonStats } from '@/data/player';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { Section, PendingValue } from '@/components/ui/section';
 import { Counter } from '@/components/ui/counter';
@@ -43,7 +43,7 @@ export function Statistics() {
   return (
     <Section
       id="numeros"
-      index="06"
+      index={sectionIndex.numeros}
       title="Números"
       lead="Registro objetivo de temporada. Os valores são somados automaticamente a partir das temporadas cadastradas."
     >

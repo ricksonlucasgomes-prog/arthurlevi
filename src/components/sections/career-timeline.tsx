@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
-import { career } from '@/data/player';
+import { career, sectionIndex } from '@/data/player';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { Section, PendingBlock } from '@/components/ui/section';
 
@@ -32,7 +32,7 @@ export function CareerTimeline() {
   return (
     <Section
       id="trajetoria"
-      index="07"
+      index={sectionIndex.trajetoria}
       title="Trajetória"
       lead="Equipes, categorias, competições e avaliações registradas em ordem cronológica."
       tone="carbon"

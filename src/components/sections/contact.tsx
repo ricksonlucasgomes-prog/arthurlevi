@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { guardianContact, identity } from '@/data/player';
+import { guardianContact, identity, sectionIndex } from '@/data/player';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { whatsappLink } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
@@ -22,7 +22,7 @@ export function Contact() {
   return (
     <Section
       id="contato"
-      index="10"
+      index={sectionIndex.contato}
       title="Contato"
       lead="Todo contato referente ao atleta é intermediado pelo responsável legal."
       tone="carbon"

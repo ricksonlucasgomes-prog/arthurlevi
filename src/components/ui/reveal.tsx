@@ -55,8 +55,19 @@ export function MaskLine({
   className?: string;
   lineClassName?: string;
 }) {
+  /*
+   * O respiro em `em` acompanha o corpo da fonte; as margens negativas o
+   * anulam no fluxo, então a linha ocupa exatamente o mesmo espaço de antes.
+   * Sem ele, a display roda com `leading` fechado e o `overflow-hidden`
+   * decepa o acento de NÚMEROS/TRAJETÓRIA e o cedilha de POSIÇÃO.
+   */
   return (
-    <span className={cn('block overflow-hidden', className)}>
+    <span
+      className={cn(
+        'block overflow-hidden pb-[0.16em] pt-[0.3em] [margin-bottom:-0.16em] [margin-top:-0.3em]',
+        className,
+      )}
+    >
       <motion.span variants={maskUp} className={cn('block will-change-transform', lineClassName)}>
         {children}
       </motion.span>

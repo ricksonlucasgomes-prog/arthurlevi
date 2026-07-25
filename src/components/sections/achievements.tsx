@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { achievements, display } from '@/data/player';
+import { achievements, display, sectionIndex } from '@/data/player';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { Section, PendingBlock } from '@/components/ui/section';
 
@@ -25,7 +25,7 @@ export function Achievements() {
   return (
     <Section
       id="conquistas"
-      index="09"
+      index={sectionIndex.conquistas}
       title="Conquistas"
       lead="Títulos, artilharias, prêmios individuais e convocações."
     >

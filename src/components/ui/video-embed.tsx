@@ -21,11 +21,18 @@ export function VideoEmbed({ highlight, className }: { highlight: Highlight; cla
         <Frame provider={highlight.provider} reference={highlight.ref} title={highlight.title} />
       ) : (
         <>
+          {/*
+            Sem vídeo, o selo "aguardando envio" ocupa o centro do quadro, e o
+            placeholder do pôster vai para o modo compacto. Os dois textos
+            disputavam o rodapé e se sobrepunham no celular, onde o quadro
+            16:9 tem pouca altura.
+          */}
           <MediaFrame
             slot={highlight.poster}
             className="absolute inset-0 h-full w-full"
             sizes="(min-width: 1024px) 70vw, 100vw"
             overlay={ready}
+            compact={!ready}
           />
 
           {ready ? (
@@ -42,8 +49,8 @@ export function VideoEmbed({ highlight, className }: { highlight: Highlight; cla
               </span>
             </button>
           ) : (
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center p-6">
-              <span className="kicker border border-line px-4 py-3 text-ash">
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6">
+              <span className="kicker border border-line bg-ink/70 px-4 py-3 text-center text-ash backdrop-blur-sm">
                 Vídeo aguardando envio
               </span>
             </div>

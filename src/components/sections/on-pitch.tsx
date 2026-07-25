@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { media, traits } from '@/data/player';
+import { media, sectionIndex, traits } from '@/data/player';
 import { clipReveal, fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { Section } from '@/components/ui/section';
 import { MediaFrame } from '@/components/ui/media-frame';
@@ -20,7 +20,7 @@ export function OnPitch() {
   return (
     <Section
       id="em-campo"
-      index="04"
+      index={sectionIndex['em-campo']}
       title="Em campo"
       lead="Como Arthur joga. Cada característica será descrita a partir da observação de quem acompanha o atleta."
     >
