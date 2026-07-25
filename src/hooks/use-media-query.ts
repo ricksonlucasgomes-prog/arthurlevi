@@ -1,24 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
 
 /**
- * Media query reativa e segura para SSR (retorna `false` no servidor e no
- * primeiro paint, evitando divergência de hidratação).
+ * Media query reativa e segura para SSR.
+ *
+ * Usa `useSyncExternalStore` porque `matchMedia` é exatamente isso: um estado
+ * externo ao React. No servidor e durante a hidratação o valor é `false`, o
+ * que garante que o HTML inicial seja sempre a versão mais leve (sem cursor
+ * customizado, sem parallax de ponteiro).
  */
 export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      const list = window.matchMedia(query);
+      list.addEventListener('change', onStoreChange);
+      return () => list.removeEventListener('change', onStoreChange);
+    },
+    [query],
+  );
 
-  useEffect(() => {
-    const list = window.matchMedia(query);
-    setMatches(list.matches);
+  const getSnapshot = useCallback(() => window.matchMedia(query).matches, [query]);
+  const getServerSnapshot = () => false;
 
-    const onChange = (event: MediaQueryListEvent) => setMatches(event.matches);
-    list.addEventListener('change', onChange);
-    return () => list.removeEventListener('change', onChange);
-  }, [query]);
-
-  return matches;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 /**

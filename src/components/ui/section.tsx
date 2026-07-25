@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
-import { drawLine, fadeUp, maskUp, stagger, viewportOnce } from '@/lib/motion';
+import { drawLine, fadeUp, stagger, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { MaskLine } from './reveal';
 

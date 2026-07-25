@@ -1,9 +1,0 @@
-<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="1400" fill="#0B0B0B"/>
-  <rect x="70" y="70" width="1060" height="1260" rx="32" stroke="#F5F5F2" stroke-opacity="0.15"/>
-  <rect x="162" y="170" width="876" height="760" rx="28" fill="#111111"/>
-  <circle cx="600" cy="550" r="260" fill="#1D1D1D"/>
-  <path d="M430 813C430 679 533 590 600 590C667 590 770 679 770 813V1006H430V813Z" fill="#F5F5F2" fill-opacity="0.76"/>
-  <text x="162" y="1128" fill="#F5F5F2" font-family="Arial, sans-serif" font-size="40" font-weight="700" letter-spacing="4">TREINO</text>
-  <text x="162" y="1184" fill="#8D8D8D" font-family="Arial, sans-serif" font-size="24" letter-spacing="3">SUBSTITUIR POR FOTO REAL</text>
-</svg>

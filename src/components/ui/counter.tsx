@@ -25,13 +25,10 @@ export function Counter({
   useEffect(() => {
     if (!inView) return;
 
-    if (reduced) {
-      setDisplay(value);
-      return;
-    }
-
+    // Com movimento reduzido a animação dura zero: o valor final chega no
+    // primeiro quadro, sem contagem, e sem setState síncrono dentro do efeito.
     const controls = animate(0, value, {
-      duration,
+      duration: reduced ? 0 : duration,
       ease: [...ease.out],
       onUpdate: (latest) => setDisplay(Math.round(latest)),
     });
