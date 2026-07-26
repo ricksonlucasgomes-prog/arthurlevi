@@ -8,6 +8,7 @@ import { useMotionOK } from '@/hooks/use-motion-ok';
 import { cn } from '@/lib/utils';
 import { MediaFrame } from '@/components/ui/media-frame';
 import { MaskLine } from '@/components/ui/reveal';
+import { Tilt } from '@/components/ui/tilt';
 
 /**
  * Abertura editorial. Não afirma nada sobre o desempenho do atleta — descreve
@@ -77,23 +78,25 @@ export function PlayerIntroduction() {
           </motion.dl>
         </motion.div>
 
-        {/* Retrato */}
+        {/* Retrato — o Tilt fica FORA do clip para os cantos girarem livres. */}
         <div ref={ref} className="lg:col-span-5">
-          <motion.div
-            variants={clipReveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            className="relative overflow-hidden"
-          >
-            <motion.div style={animate ? { y: imageY } : undefined} className="scale-[1.08]">
-              <MediaFrame
-                slot={media.portrait}
-                className="aspect-[3/4] w-full lg:aspect-[3/4.4]"
-                sizes="(min-width: 1024px) 40vw, 100vw"
-              />
+          <Tilt maxTilt={2.5}>
+            <motion.div
+              variants={clipReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              className="relative overflow-hidden"
+            >
+              <motion.div style={animate ? { y: imageY } : undefined} className="scale-[1.08]">
+                <MediaFrame
+                  slot={media.portrait}
+                  className="aspect-[3/4] w-full lg:aspect-[3/4.4]"
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </Tilt>
 
           <p className="kicker mt-4 text-ash">{editorial.introduction.portraitLabel}</p>
         </div>

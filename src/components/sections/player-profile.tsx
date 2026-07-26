@@ -9,9 +9,10 @@ import {
   sectionIndex,
   type Pending,
 } from '@/data/player';
-import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { fadeUp, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { Section, PendingValue } from '@/components/ui/section';
 import { MediaFrame } from '@/components/ui/media-frame';
+import { Tilt } from '@/components/ui/tilt';
 
 /**
  * Ficha técnica. Campos sem informação real ficam explicitamente vazios —
@@ -53,7 +54,7 @@ export function PlayerProfile() {
         >
           {/* Dados essenciais confirmados — leitura imediata para quem avalia. */}
           <motion.dl
-            variants={fadeUp}
+            variants={tiltIn}
             className="grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-3"
           >
             {confirmed.map((row, index) => (
@@ -73,7 +74,7 @@ export function PlayerProfile() {
 
           {/* Demais campos permanecem visíveis, mas compactos e inequívocos. */}
           <motion.dl
-            variants={fadeUp}
+            variants={tiltIn}
             className="mt-6 grid grid-cols-2 border-l border-t border-line"
           >
             {details.map((row, index) => (
@@ -101,48 +102,48 @@ export function PlayerProfile() {
           className="flex flex-col lg:col-span-4"
         >
           {hasShirtNumber ? (
-            <motion.div variants={fadeUp} className="border border-line">
-              <p className="kicker border-b border-line px-5 py-4 text-ash">Número da camisa</p>
-              <div className="flex aspect-[2/1] items-center justify-center lg:aspect-square">
-                <span className="font-display text-[clamp(5rem,16vw,10rem)] leading-none">
-                  {bio.shirtNumber}
-                </span>
-              </div>
+            <motion.div variants={tiltIn}>
+              <Tilt className="border border-line">
+                <p className="kicker border-b border-line px-5 py-4 text-ash">Número da camisa</p>
+                <div className="flex aspect-[2/1] items-center justify-center lg:aspect-square">
+                  <span className="font-display text-[clamp(5rem,16vw,10rem)] leading-none">
+                    {bio.shirtNumber}
+                  </span>
+                </div>
+              </Tilt>
             </motion.div>
           ) : null}
 
           {hasClub ? (
-            <motion.div
-              variants={fadeUp}
-              className={`${hasShirtNumber ? 'mt-6' : ''} border border-line`}
-            >
-              <p className="kicker border-b border-line px-5 py-4 text-ash">Clube atual</p>
-              <div className="flex items-center gap-5 p-5">
-                <MediaFrame
-                  slot={bio.clubCrest}
-                  className="size-20 shrink-0"
-                  sizes="80px"
-                  compact
-                />
-                <p className="font-display text-xl leading-tight">
-                  {bio.club ?? <PendingValue compact />}
-                </p>
-              </div>
+            <motion.div variants={tiltIn} className={hasShirtNumber ? 'mt-6' : ''}>
+              <Tilt className="border border-line">
+                <p className="kicker border-b border-line px-5 py-4 text-ash">Clube atual</p>
+                <div className="flex items-center gap-5 p-5">
+                  <MediaFrame
+                    slot={bio.clubCrest}
+                    className="size-20 shrink-0"
+                    sizes="80px"
+                    compact
+                  />
+                  <p className="font-display text-xl leading-tight">
+                    {bio.club ?? <PendingValue compact />}
+                  </p>
+                </div>
+              </Tilt>
             </motion.div>
           ) : null}
 
           {!hasShirtNumber && !hasClub ? (
-            <motion.div
-              variants={fadeUp}
-              className="hatch flex min-h-64 flex-1 flex-col justify-end border border-line p-6 md:p-8 lg:min-h-0"
-            >
-              <p className="kicker text-accent">Aguardando confirmação</p>
-              <h3 className="mt-5 font-display text-3xl leading-none">
-                {editorial.profile.pendingTitle}
-              </h3>
-              <p className="text-support mt-5 max-w-[34ch] text-ash">
-                {editorial.profile.pendingBody}
-              </p>
+            <motion.div variants={tiltIn} className="flex flex-1">
+              <Tilt className="hatch flex min-h-64 flex-1 flex-col justify-end border border-line p-6 md:p-8 lg:min-h-0">
+                <p className="kicker text-accent">Aguardando confirmação</p>
+                <h3 className="mt-5 font-display text-3xl leading-none">
+                  {editorial.profile.pendingTitle}
+                </h3>
+                <p className="text-support mt-5 max-w-[34ch] text-ash">
+                  {editorial.profile.pendingBody}
+                </p>
+              </Tilt>
             </motion.div>
           ) : null}
 

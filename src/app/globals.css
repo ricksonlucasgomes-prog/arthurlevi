@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   TOKENS
-   Uma base quase preta, um texto osso e UMA cor de destaque.
-   O accent (#FF3B1F) tem contraste 5.6:1 sobre #080808 — aprovado em AA
-   inclusive para texto pequeno.
+   TOKENS — "Obsidian Red" (jul/2026)
+   Uma base quase preta fria, um texto gelo e UMA cor de destaque vermelha,
+   retomada a pedido do cliente em jul/2026.
+   O accent (#FF3B1F) tem contraste 5.7:1 sobre #05070A — aprovado em AA
+   para texto normal.
    ========================================================================== */
 
 @theme {
-  --color-ink: #080808;
-  --color-carbon: #111111;
-  --color-graphite: #191919;
-  --color-bone: #f5f5f2;
-  --color-ash: #8d8d8d;
+  --color-ink: #05070a;
+  --color-carbon: #0e1319;
+  --color-graphite: #161d26;
+  --color-bone: #edf2f7;
+  --color-ash: #8b97a5;
   --color-accent: #ff3b1f;
-  --color-accent-deep: #b32a12;
+  --color-accent-deep: #8c1e0e;
 
-  --color-line: rgb(245 245 242 / 0.12);
-  --color-line-strong: rgb(245 245 242 / 0.24);
+  --color-line: rgb(237 242 247 / 0.12);
+  --color-line-strong: rgb(237 242 247 / 0.24);
 
   --shadow-lift: 0 40px 120px -40px rgb(0 0 0 / 0.9);
 }
@@ -122,10 +123,28 @@ body {
 .hatch {
   background-image: repeating-linear-gradient(
     -45deg,
-    rgb(245 245 242 / 0.09) 0px,
-    rgb(245 245 242 / 0.09) 1px,
+    rgb(237 242 247 / 0.09) 0px,
+    rgb(237 242 247 / 0.09) 1px,
     transparent 1px,
     transparent 7px
+  );
+}
+
+/*
+ * Vinheta de projeção: escurece levemente os cantos da tela, como uma lente
+ * anamórfica. Junto com o grão, é o que dá o acabamento de filme — estática,
+ * sem custo de animação.
+ */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  pointer-events: none;
+  background: radial-gradient(
+    130% 100% at 50% 45%,
+    transparent 62%,
+    rgb(0 0 0 / 0.32) 100%
   );
 }
 

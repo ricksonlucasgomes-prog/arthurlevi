@@ -10,6 +10,7 @@ import { Gallery } from '@/components/sections/gallery';
 import { Achievements } from '@/components/sections/achievements';
 import { ScoutingCTA } from '@/components/sections/scouting-cta';
 import { Contact } from '@/components/sections/contact';
+import { CinematicBreak } from '@/components/sections/cinematic-break';
 import { sectionVisibility } from '@/data/player';
 
 /**
@@ -23,6 +24,7 @@ export default function Home() {
       <main id="conteudo">
         <PlayerIntroduction />
         <PlayerProfile />
+        <CinematicBreak />
         {sectionVisibility.attributes ? <PlayerAttributes /> : null}
         {sectionVisibility.onPitch ? <OnPitch /> : null}
         {sectionVisibility.highlights ? <Highlights /> : null}

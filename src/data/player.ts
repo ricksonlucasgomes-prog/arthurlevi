@@ -162,6 +162,12 @@ export const editorial = {
       'Registros reais de jogo, concentração e retrato compõem um olhar direto sobre o atleta.',
     mobileHint: 'Deslize para explorar',
   },
+  cinematic: {
+    eyebrow: 'Em movimento',
+    lines: ['Um objetivo.', 'Cada jogada.', 'Um passo adiante.'],
+    body:
+      'Uma apresentação construída a partir de registros reais, com foco no desenvolvimento esportivo.',
+  },
   contact: {
     lead: 'Todo contato referente ao atleta é intermediado pelo responsável legal.',
     eyebrow: 'Canal oficial',

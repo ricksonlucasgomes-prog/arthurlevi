@@ -1,7 +1,14 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionStyle,
+} from 'motion/react';
 import { display, identity, media, sectionVisibility } from '@/data/player';
 import { useMotionOK } from '@/hooks/use-motion-ok';
 import { useMounted } from '@/hooks/use-mounted';
@@ -32,6 +39,19 @@ export function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
   const backdropScale = useTransform(scrollYProgress, [0, 1], [1, 1.14]);
   const backdropY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+  const backdropClip = useTransform(
+    scrollYProgress,
+    [0, 0.72],
+    ['circle(82% at 72% 50%)', 'circle(48% at 72% 50%)'],
+  );
+
+  /*
+   * As duas linhas do nome saem em velocidades diferentes — a separação entre
+   * elas durante o scroll é o que vende a tipografia como camadas físicas,
+   * não como um bloco único de texto.
+   */
+  const firstLineY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%']);
+  const lastLineY = useTransform(scrollYProgress, [0, 1], ['0%', '16%']);
 
   // Parallax de ponteiro — deslocamento de poucos pixels, só no desktop.
   const pointerX = useMotionValue(0);
@@ -43,6 +63,15 @@ export function Hero() {
   const backdropShiftY = useTransform(smoothY, [-0.5, 0.5], [10, -10]);
   const cutoutShiftX = useTransform(smoothX, [-0.5, 0.5], [-26, 26]);
   const cutoutShiftY = useTransform(smoothY, [-0.5, 0.5], [-16, 16]);
+
+  /*
+   * Profundidade 3D de ponteiro: a tipografia e o recorte giram poucos graus
+   * em sentidos opostos, como planos de um set filmado em dolly. Ângulos
+   * curtos de propósito — acima disso vira efeito de vitrine.
+   */
+  const contentRotateX = useTransform(smoothY, [-0.5, 0.5], [1.7, -1.7]);
+  const contentRotateY = useTransform(smoothX, [-0.5, 0.5], [-2.4, 2.4]);
+  const cutoutRotateY = useTransform(smoothX, [-0.5, 0.5], [3, -3]);
 
   const handlePointer = (event: React.PointerEvent<HTMLElement>) => {
     if (!interact) return;
@@ -59,7 +88,11 @@ export function Hero() {
     >
       {/* ---------- Camada 1: fundo fotográfico ---------- */}
       <motion.div
-        style={parallax ? { scale: backdropScale, y: backdropY } : undefined}
+        style={
+          parallax
+            ? { scale: backdropScale, y: backdropY, clipPath: backdropClip }
+            : undefined
+        }
         className="absolute inset-0"
       >
         <motion.div
@@ -80,10 +113,27 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
+      <motion.p
+        aria-hidden
+        style={parallax ? { opacity: contentOpacity } : undefined}
+        className="pointer-events-none absolute -right-[0.06em] top-1/2 z-[5] hidden -translate-y-1/2 font-display text-[62vw] leading-none text-bone/[0.035] lg:block"
+      >
+        {identity.age}
+      </motion.p>
+
       {/* ---------- Camada 3: recorte do atleta (passa por cima do nome) ---------- */}
       {media.heroCutout.src ? (
         <motion.div
-          style={interact ? { x: cutoutShiftX, y: cutoutShiftY } : undefined}
+          style={
+            interact
+              ? {
+                  x: cutoutShiftX,
+                  y: cutoutShiftY,
+                  rotateY: cutoutRotateY,
+                  transformPerspective: 1200,
+                }
+              : undefined
+          }
           className="pointer-events-none absolute bottom-0 right-0 z-20 h-[62%] w-[72%] sm:h-[70%] sm:w-[58%] lg:h-[92%] lg:w-[46%]"
         >
           <MediaFrame
@@ -102,18 +152,35 @@ export function Hero() {
         style={parallax ? { y: contentY, opacity: contentOpacity } : undefined}
         className="relative z-10 flex min-h-svh flex-col justify-end pb-20 pt-24 sm:pb-24 lg:justify-center lg:pb-32 lg:pt-28"
       >
-        <div className="shell">
+        {/* Plano 3D interno: o giro de ponteiro fica separado do parallax de
+            scroll do contêiner para as duas transformações não competirem. */}
+        <motion.div
+          style={
+            interact
+              ? {
+                  rotateX: contentRotateX,
+                  rotateY: contentRotateY,
+                  transformPerspective: 1400,
+                }
+              : undefined
+          }
+          className="shell"
+        >
           <p className="kicker mb-3 flex items-center gap-3 text-accent md:mb-5 lg:mb-7">
             <span aria-hidden className="h-px w-8 bg-accent" />
             {identity.position}
           </p>
 
-          <h1 className="font-display leading-[0.84] tracking-[-0.015em] lg:leading-[0.82]">
+          <h1 className="font-display uppercase leading-[0.84] tracking-[-0.025em] lg:leading-[0.78]">
             <span className="sr-only">
               {identity.fullName} — {identity.position}, {identity.age} anos
             </span>
-            <NameLine text={identity.firstName} />
-            <NameLine text={identity.lastName} />
+            <NameLine text={identity.firstName} style={parallax ? { y: firstLineY } : undefined} />
+            <NameLine
+              text={identity.lastName}
+              style={parallax ? { y: lastLineY } : undefined}
+              photoFill
+            />
           </h1>
 
           {/* Faixa de dados — idade + frase, separadas por régua técnica */}
@@ -143,7 +210,7 @@ export function Hero() {
               </Action>
             ) : null}
           </div>
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* ---------- Sobreposição técnica ---------- */}
@@ -153,13 +220,45 @@ export function Hero() {
   );
 }
 
-/** Uma linha do nome, revelada por máscara. */
-function NameLine({ text }: { text: string }) {
+/**
+ * Uma linha do nome. `style` recebe o parallax diferencial de scroll;
+ * `photoFill` preenche as letras com a própria foto da hero em duotone de
+ * vermelho — nenhuma imagem nova é criada, a textura é a foto real já publicada.
+ */
+function NameLine({
+  text,
+  style,
+  photoFill = false,
+}: {
+  text: string;
+  style?: MotionStyle;
+  photoFill?: boolean;
+}) {
+  const fill =
+    photoFill && media.heroBackground.src
+      ? {
+          // Gradiente vermelho + foto com blend "color": a luminância vem da
+          // foto, o tom vem da paleta — as letras viram janelas para a imagem.
+          backgroundImage: `linear-gradient(rgb(255 59 31 / 0.85), rgb(255 59 31 / 0.45)), url(${media.heroBackground.src})`,
+          backgroundBlendMode: 'color' as const,
+          backgroundSize: 'cover',
+          backgroundPosition: '66% 30%',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          color: 'transparent',
+        }
+      : undefined;
+
   return (
     <span aria-hidden className="block overflow-hidden">
-      <span className="block text-[clamp(4.5rem,21vw,6rem)] lg:text-[clamp(3.75rem,17vw,15rem)]">
-        {text}
-      </span>
+      <motion.span
+        style={style}
+        className="block text-[clamp(4.5rem,21vw,6rem)] lg:text-[clamp(4.5rem,18.5vw,16.5rem)]"
+      >
+        <span style={fill} className="inline-block">
+          {text}
+        </span>
+      </motion.span>
     </span>
   );
 }

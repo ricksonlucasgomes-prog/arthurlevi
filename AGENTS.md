@@ -63,9 +63,12 @@ pública. Deve virar `false` antes de divulgar.
 
 ## Direção de arte
 
-Fundo `#080808` / `#111111` · texto `#F5F5F2` · cinza `#8D8D8D` · destaque
-**único** `#FF3B1F` (contraste 5,6:1, AA). Display **Anton**, texto
-**Archivo**, técnico **JetBrains Mono**.
+**"Obsidian Red" (jul/2026, pedido do cliente)** — fundo `#05070A` /
+`#0E1319` · texto gelo `#EDF2F7` · cinza frio `#8B97A5` · destaque **único**
+vermelho `#FF3B1F` (contraste 5,7:1, AA para texto normal).
+Display **Anton**, texto **Archivo**, técnico **JetBrains Mono**. A variação
+de aço "Obsidian Steel" (accent `#7FB0E0`) foi testada e descartada pelo
+cliente em jul/2026 — o vermelho é a direção vigente.
 
 Tokens em `src/app/globals.css` (`@theme`). Classes utilitárias próprias:
 `.shell` (container), `.kicker` (rótulo mono), `.hatch` (campo pendente),
@@ -78,6 +81,16 @@ Tokens em `src/app/globals.css` (`@theme`). Classes utilitárias próprias:
   `prefers-reduced-motion`.
 - `interact` — ponteiro (cursor customizado, magnetismo, parallax de mouse).
   Exige ponteiro preciso; **nunca** roda em toque.
+
+**Profundidade 3D (v2, jul/2026)** — referência: o site do GTA VI/Rockstar,
+traduzido para a linguagem editorial do projeto. Toda profundidade vem de
+`transform`, nunca de WebGL: `Tilt` (`ui/tilt.tsx`) inclina planos de mídia
+em até ~4° na direção do ponteiro (gate `interact`, brilho especular opcional);
+a variante `tiltIn` (`lib/motion.ts`) faz blocos entrarem com leve rotateX;
+a hero gira tipografia e recorte em sentidos opostos e as duas linhas do nome
+saem em velocidades diferentes no scroll; o sobrenome usa a própria foto da
+hero como textura (`background-clip: text`, duotone vermelho — nenhuma imagem
+nova é criada). Ângulos sempre curtos: cinematográfico, não vitrine giratória.
 
 Mobile é prioridade e tem comportamento próprio, não é desktop reduzido
 (galeria vira rail com snap, menu vira tela cheia).

@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import { currentSeason, sectionIndex, statistics, type SeasonStats } from '@/data/player';
-import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { fadeUp, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { Section, PendingValue } from '@/components/ui/section';
 import { Counter } from '@/components/ui/counter';
 
@@ -55,7 +55,7 @@ export function Statistics() {
         className="grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4"
       >
         {primary.map((item) => (
-          <motion.div key={item.label} variants={fadeUp} className="bg-ink px-5 py-8 md:px-7 md:py-12">
+          <motion.div key={item.label} variants={tiltIn} className="bg-ink px-5 py-8 md:px-7 md:py-12">
             <p className="kicker text-ash">{item.label}</p>
             <p className="mt-6 font-display text-[clamp(3rem,8vw,5.5rem)] leading-[0.85]">
               {item.value !== null ? <Counter value={item.value} /> : <PendingValue compact />}

@@ -68,6 +68,23 @@ export const drawLine: Variants = {
   },
 };
 
+/**
+ * Entrada em profundidade: o bloco levanta de um leve tombo 3D, como uma
+ * cartela apoiada na mesa. O ângulo é curto de propósito — profundidade
+ * cinematográfica, não vitrine giratória. Com `reducedMotion="user"` no
+ * MotionConfig, o transform é suprimido sozinho quando o usuário pede.
+ */
+export const tiltIn: Variants = {
+  hidden: { opacity: 0, y: 44, rotateX: 9, transformPerspective: 1100 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transformPerspective: 1100,
+    transition: { duration: duration.slow, ease: ease.out },
+  },
+};
+
 /** Imagem revelada por clipping vertical, com leve contra-movimento interno. */
 export const clipReveal: Variants = {
   hidden: { clipPath: 'inset(100% 0% 0% 0%)' },

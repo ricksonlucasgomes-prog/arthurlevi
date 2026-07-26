@@ -6,6 +6,7 @@ import { clipReveal, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
 import { MediaFrame } from '@/components/ui/media-frame';
+import { Tilt } from '@/components/ui/tilt';
 
 /**
  * Composição editorial da galeria.
@@ -66,20 +67,23 @@ export function Gallery() {
               layout[index % layout.length],
             )}
           >
-            <MediaFrame
-              slot={item}
-              className="h-full w-full [&_img]:transition-transform [&_img]:duration-700 [&_img]:ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[&_img]:scale-105"
-              sizes="(min-width: 1024px) 45vw, 78vw"
-              compact
-            />
+            {/* Cada foto é um plano físico: inclina na direção do ponteiro. */}
+            <Tilt className="h-full w-full">
+              <MediaFrame
+                slot={item}
+                className="h-full w-full [&_img]:transition-transform [&_img]:duration-700 [&_img]:ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[&_img]:scale-105"
+                sizes="(min-width: 1024px) 45vw, 78vw"
+                compact
+              />
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-4">
-              <span className="kicker bg-ink/70 px-3 py-2 backdrop-blur-sm">{item.tag}</span>
-              <span className="kicker text-ash/70">
-                {String(index + 1).padStart(2, '0')} /{' '}
-                {String(visibleGallery.length).padStart(2, '0')}
-              </span>
-            </div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-4">
+                <span className="kicker bg-ink/70 px-3 py-2 backdrop-blur-sm">{item.tag}</span>
+                <span className="kicker text-ash/70">
+                  {String(index + 1).padStart(2, '0')} /{' '}
+                  {String(visibleGallery.length).padStart(2, '0')}
+                </span>
+              </div>
+            </Tilt>
 
             {item.caption ? (
               <p className="kicker absolute -bottom-8 left-0 hidden text-ash lg:block">
