@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { highlights, sectionIndex } from '@/data/player';
-import { clipReveal, fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { display, highlights, sectionIndex } from '@/data/player';
+import { clipReveal, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
 import { VideoEmbed } from '@/components/ui/video-embed';
@@ -44,7 +44,7 @@ export function Highlights() {
         viewport={viewportOnce}
         className="mt-6 flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-12"
       >
-        <motion.div variants={fadeUp}>
+        <motion.div variants={tiltIn}>
           <h3 className="font-display text-2xl leading-none md:text-3xl">{current.title}</h3>
           <p className="kicker mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-ash">
             <span>{providerLabel(current.provider)}</span>
@@ -59,7 +59,7 @@ export function Highlights() {
         </motion.div>
 
         {highlights.length > 1 ? (
-          <motion.ul variants={fadeUp} className="flex w-full flex-col gap-px bg-line md:max-w-sm">
+          <motion.ul variants={tiltIn} className="flex w-full flex-col gap-px bg-line md:max-w-sm">
             {highlights.map((item, index) => (
               <li key={item.id}>
                 <button
@@ -84,7 +84,8 @@ export function Highlights() {
         ) : null}
       </motion.div>
 
-      {published === 0 ? (
+      {/* Instrução de preenchimento é interna — nunca aparece na página pública. */}
+      {published === 0 && display.showPendingSections ? (
         <p className="mt-10 max-w-[68ch] text-sm leading-relaxed text-ash">
           Para publicar um vídeo, abra{' '}
           <code className="font-mono text-xs text-bone">src/data/player.ts</code> e preencha{' '}

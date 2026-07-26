@@ -31,6 +31,8 @@ export function ScoutingCTA() {
             compact
           />
         </motion.div>
+        {/* Duotone vermelho sobre a foto — mesma assinatura cromática do sobrenome na hero. */}
+        <div aria-hidden className="absolute inset-0 bg-accent/60 mix-blend-color" />
         <div aria-hidden className="absolute inset-0 bg-ink/80" />
       </div>
 

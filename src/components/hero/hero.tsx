@@ -9,7 +9,7 @@ import {
   useTransform,
   type MotionStyle,
 } from 'motion/react';
-import { display, identity, media, sectionVisibility } from '@/data/player';
+import { display, hasPublishedHighlights, identity, media } from '@/data/player';
 import { useMotionOK } from '@/hooks/use-motion-ok';
 import { useMounted } from '@/hooks/use-mounted';
 import { MediaFrame } from '@/components/ui/media-frame';
@@ -199,7 +199,7 @@ export function Hero() {
             <Action href="#perfil" className="w-full sm:w-auto">
               Ver perfil
             </Action>
-            {sectionVisibility.highlights ? (
+            {hasPublishedHighlights ? (
               <Action
                 href="#highlights"
                 variant="ghost"

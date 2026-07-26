@@ -2,9 +2,10 @@
 
 import { motion } from 'motion/react';
 import { media, sectionIndex, traits } from '@/data/player';
-import { clipReveal, fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { clipReveal, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { Section } from '@/components/ui/section';
 import { MediaFrame } from '@/components/ui/media-frame';
+import { Tilt } from '@/components/ui/tilt';
 import { PitchDiagram } from './pitch-diagram';
 
 /**
@@ -26,7 +27,10 @@ export function OnPitch() {
     >
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <PitchDiagram />
+          {/* Planos de material inclináveis — mesmo gesto de profundidade da hero. */}
+          <Tilt>
+            <PitchDiagram />
+          </Tilt>
 
           <motion.div
             variants={clipReveal}
@@ -35,11 +39,13 @@ export function OnPitch() {
             viewport={viewportOnce}
             className="mt-6"
           >
-            <MediaFrame
-              slot={media.onPitch}
-              className="aspect-[16/10] w-full"
-              sizes="(min-width: 1024px) 40vw, 100vw"
-            />
+            <Tilt>
+              <MediaFrame
+                slot={media.onPitch}
+                className="aspect-[16/10] w-full"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+            </Tilt>
           </motion.div>
         </div>
 
@@ -53,7 +59,7 @@ export function OnPitch() {
           {traits.map((trait, index) => (
             <motion.li
               key={trait.key}
-              variants={fadeUp}
+              variants={tiltIn}
               className="border-b border-line py-6 first:border-t md:py-7"
             >
               <div className="flex items-baseline gap-4">

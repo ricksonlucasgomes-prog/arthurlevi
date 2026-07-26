@@ -116,6 +116,10 @@ sozinha a partir de `player.ts`.
   (02 → 08 → 10) são intencionais — sinalizam o material completo em
   construção. Decisão do cliente (jul/2026); **não** renumerar pelo visível.
   Menu e cabeçalho de seção devem exibir sempre o mesmo número.
+- **A seção de vídeos (Highlights) existe sempre na página pública** (pedido
+  do cliente, jul/2026), mesmo sem vídeo publicado — o player mostra o quadro
+  "aguardando envio". O botão "Assistir highlights" da hero continua condicionado
+  a vídeo real (`hasPublishedHighlights` em `player.ts`).
 - **Todo ajuste validado deve ser commitado e enviado ao GitHub** (pedido do
   cliente). O push em `master` dispara o deploy na Vercel.
 

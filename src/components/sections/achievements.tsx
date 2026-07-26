@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import { achievements, display, sectionIndex } from '@/data/player';
-import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { Section, PendingBlock } from '@/components/ui/section';
 
 const kindLabel: Record<string, string> = {
@@ -45,7 +45,7 @@ export function Achievements() {
           {achievements.map((item) => (
             <motion.li
               key={item.id}
-              variants={fadeUp}
+              variants={tiltIn}
               className="grid grid-cols-1 items-baseline gap-3 border-b border-line py-7 md:grid-cols-[7rem_1fr_minmax(0,20rem)] md:gap-8 md:py-9"
             >
               <span className="font-display text-3xl leading-none text-accent md:text-4xl">

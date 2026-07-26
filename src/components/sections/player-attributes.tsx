@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import { attributes, sectionIndex } from '@/data/player';
-import { duration, ease, fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { duration, ease, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { Section } from '@/components/ui/section';
 import { Counter } from '@/components/ui/counter';
 
@@ -33,7 +33,7 @@ export function PlayerAttributes() {
         {attributes.map((attribute, index) => (
           <motion.li
             key={attribute.key}
-            variants={fadeUp}
+            variants={tiltIn}
             className="grid grid-cols-[auto_1fr] items-center gap-x-5 gap-y-4 border-b border-line py-6 md:grid-cols-[3rem_minmax(0,16rem)_1fr_5rem] md:gap-x-8 md:py-7"
           >
             <span className="kicker text-ash/60">{String(index + 1).padStart(2, '0')}</span>

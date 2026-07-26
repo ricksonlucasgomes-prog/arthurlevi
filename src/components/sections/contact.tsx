@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import { editorial, guardianContact, identity, sectionIndex } from '@/data/player';
-import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { fadeUp, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { whatsappLink } from '@/lib/utils';
 import { Section } from '@/components/ui/section';
 import { Action } from '@/components/ui/action';
@@ -36,7 +36,7 @@ export function Contact() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-12">
           <motion.div
-            variants={fadeUp}
+            variants={tiltIn}
             className="border-b border-line py-10 lg:col-span-7 lg:border-b-0 lg:border-r lg:py-14 lg:pr-16"
           >
             <p className="kicker text-accent">{editorial.contact.eyebrow}</p>
@@ -68,7 +68,7 @@ export function Contact() {
           </motion.div>
 
           <motion.dl
-            variants={fadeUp}
+            variants={tiltIn}
             className="py-4 lg:col-span-5 lg:py-8 lg:pl-12"
             aria-label="Dados do contato responsável"
           >

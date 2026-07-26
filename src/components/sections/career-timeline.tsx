@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { career, sectionIndex } from '@/data/player';
-import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { fadeUp, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { Section, PendingBlock } from '@/components/ui/section';
 
 const kindLabel: Record<string, string> = {
@@ -73,7 +73,7 @@ export function CareerTimeline() {
                 </motion.p>
 
                 <motion.h3
-                  variants={fadeUp}
+                  variants={tiltIn}
                   className="mt-4 font-display text-[clamp(1.75rem,4vw,3rem)] leading-[0.95]"
                 >
                   {entry.title}

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
-import { drawLine, fadeUp, stagger, viewportOnce } from '@/lib/motion';
+import { drawLine, fadeUp, stagger, tiltIn, viewportOnce } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 import { MaskLine } from './reveal';
 
@@ -103,7 +103,7 @@ function SectionHeader({ id, index, title, lead }: Pick<SectionProps, 'id' | 'in
 export function PendingBlock({ title, description }: { title: string; description: string }) {
   return (
     <motion.div
-      variants={fadeUp}
+      variants={tiltIn}
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}

@@ -468,8 +468,11 @@ export const sectionVisibility = {
     display.showPendingSections ||
     media.onPitch.src !== null ||
     traits.some((trait) => trait.body !== null),
-  highlights:
-    display.showPendingSections || highlights.some((highlight) => highlight.ref !== null),
+  /*
+   * DECISÃO DO CLIENTE (jul/2026): a seção de vídeos existe sempre na página
+   * pública. Sem vídeo publicado, o player mostra o quadro "aguardando envio".
+   */
+  highlights: true,
   statistics:
     display.showPendingSections || currentSeason !== null || statistics.length > 0,
   career: display.showPendingSections || career.length > 0,
@@ -477,6 +480,9 @@ export const sectionVisibility = {
   achievements: display.showPendingSections || achievements.length > 0,
   scouting: display.showPendingSections || media.scouting.src !== null,
 } as const;
+
+/** Há vídeo publicado de fato — controla o botão "Assistir highlights" da hero. */
+export const hasPublishedHighlights = highlights.some((highlight) => highlight.ref !== null);
 
 /**
  * Numeração narrativa das seções.
