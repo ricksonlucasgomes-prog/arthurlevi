@@ -255,9 +255,11 @@ export const media = {
    * que mais eleva o resultado final.
    */
   heroCutout: {
-    src: null,
+    // Recorte derivado da própria hero-bg.webp (remoção de fundo + upscale
+    // sobre a foto real — nenhuma imagem gerada), jul/2026.
+    src: '/media/hero-cutout.png',
     expectedPath: '/media/hero-cutout.png',
-    alt: 'Arthur Levi em pose de atacante',
+    alt: 'Arthur Levi conduzindo a bola em jogo',
     brief:
       'MESMA foto da hero, porém com o fundo removido (PNG transparente). Corpo inteiro ou 3/4, olhando para a câmera.',
     spec: 'PNG transparente, 1600×2200 px mínimo',
